@@ -1,0 +1,12 @@
+services:
+  worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: pol-bridge-worker
+    ports:
+      - "8787:8787"
+    environment:
+      - BRIDGE_TOKEN=bridge_dev_secret_token
+      - ALLOWED_HOSTS=muse.ai,*.muse.ai,*.meta.ai,*.facebook.com
+    restart: unless-stopped

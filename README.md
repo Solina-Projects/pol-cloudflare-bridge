@@ -23,6 +23,10 @@
 <img src="https://img.shields.io/badge/Tunnel-TLS%20over%20WebSocket-0EA5E9?style=flat-square&logo=websocket&logoColor=white" />
 <img src="https://img.shields.io/badge/Egress-US%20Clean%20IP-8B5CF6?style=flat-square" />
 <img src="https://img.shields.io/badge/Security-Zero%20Knowledge%20E2EE-10B981?style=flat-square" />
+<a href="https://github.com/imgutss/pol-cloudflare-bridge/actions/workflows/ci.yml">
+  <img src="https://github.com/imgutss/pol-cloudflare-bridge/actions/workflows/ci.yml/badge.svg" alt="CI" />
+</a>
+<img src="https://img.shields.io/badge/Dependabot-Active-025E8C?style=flat-square&logo=dependabot&logoColor=white" />
 <img src="https://img.shields.io/badge/Target-Meta%20Muse%20(muse.ai)-0081FB?style=flat-square&logo=meta&logoColor=white" />
 <img src="https://img.shields.io/badge/License-MIT-10B981?style=flat-square" />
 
@@ -168,6 +172,10 @@ Meta recently restricted their legacy <code>/access</code> endpoint. This update
 **Crafted by [Guts (imgutss)](https://github.com/imgutss)** • *Released under the MIT License*
 
 <br/>
+
+[Contributing](./CONTRIBUTING.md) • [Security Policy](./SECURITY.md) • [Changelog](./CHANGELOG.md) • [Code of Conduct](./CODE_OF_CONDUCT.md)
+
+<br/><br/>
 
 <a href="https://github.com/imgutss/pol-cloudflare-bridge">
   <img src="https://img.shields.io/badge/GitHub-pol--cloudflare--bridge-181717?style=for-the-badge&logo=github&logoColor=white" />

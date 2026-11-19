@@ -153,6 +153,10 @@ npx wrangler deploy
 
 <br/>
 
+[راهنمای مشارکت](./CONTRIBUTING.md) • [خط‌مشی امنیت](./SECURITY.md) • [تاریخچه تغییرات](./CHANGELOG.md) • [مرام‌نامه اخلاقی](./CODE_OF_CONDUCT.md)
+
+<br/><br/>
+
 <a href="https://github.com/imgutss/pol-cloudflare-bridge">
   <img src="https://img.shields.io/badge/GitHub-pol--cloudflare--bridge-181717?style=for-the-badge&logo=github&logoColor=white" />
 </a>

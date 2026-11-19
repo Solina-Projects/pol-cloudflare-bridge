@@ -1,0 +1,12 @@
+# Vendor decompiled smali bytecodes and binary assets so Linguist highlights actual project code (JavaScript, HTML, Shell)
+android/smali/** linguist-vendored=true
+android/original/** linguist-vendored=true
+android/unknown/** linguist-vendored=true
+android/kotlin/** linguist-vendored=true
+android/res/** linguist-vendored=true
+
+# Line ending normalization
+* text=auto eol=lf
+*.apk binary
+*.png binary
+*.keystore binary
