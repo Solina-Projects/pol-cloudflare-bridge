@@ -1,0 +1,8 @@
+.idea/
+*.idsig
+*.apk
+build/
+.gradle/
+node_modules/
+.DS_Store
+*.log

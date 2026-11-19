@@ -1,0 +1,23 @@
+{
+  "name": "pol-cloudflare-bridge-worker",
+  "version": "1.0.0",
+  "description": "Cloudflare Worker edge tunnel with TLS over WebSocket for Pol Bridge",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy"
+  },
+  "keywords": [
+    "cloudflare-workers",
+    "websocket",
+    "tunnel",
+    "meta-ai",
+    "muse"
+  ],
+  "author": "Guts",
+  "license": "MIT",
+  "devDependencies": {
+    "wrangler": "^3.80.0"
+  }
+}

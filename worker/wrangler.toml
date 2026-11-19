@@ -1,0 +1,10 @@
+name = "pol-cloudflare-bridge"
+main = "src/index.js"
+compatibility_date = "2024-11-01"
+
+[vars]
+PLACEMENT_HINT = "aws:us-east-1"
+ALLOWED_HOSTS = "muse.ai,*.muse.ai,*.meta.ai,*.meta.com,*.facebook.com,*.fbcdn.net,*.fbsbx.com,*.instagram.com,*.cdninstagram.com,www.google.com,recaptcha.google.com,www.gstatic.com,www.recaptcha.net,hcaptcha.com,*.hcaptcha.com,challenges.cloudflare.com"
+
+# Set BRIDGE_TOKEN secret via:
+# npx wrangler secret put BRIDGE_TOKEN

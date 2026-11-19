@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#06080d">
+<title>پل کلودفلر · Cloudflare Bridge</title>
+<style>
+:root{--ink:#06080d;--s1:#131b2a;--s2:#0a0f18;--edge:#1d2738;--edge2:#2d3b54;--ice:#eaf0f8;--mute:#7c8ba1;--sig:#ff8a2a;--sig2:#b85a0c;--ok:#5be3b0;--bad:#ff5568}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{background:var(--ink);overflow-x:hidden}
+body{min-height:100vh;color:var(--ice);font:14px/1.7 system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:radial-gradient(70% 38% at 50% 0,#182640 0,transparent 72%),var(--ink);display:flex;justify-content:center;padding:16px 14px 44px;overflow-x:hidden;touch-action:pan-y}
+.app{width:100%;max-width:440px;display:flex;flex-direction:column;gap:16px}
+:focus-visible{outline:2px solid var(--sig);outline-offset:3px}
+
+/* icons */
+.ic{width:20px;height:20px;flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(1.2px 1.2px 0 rgba(255,138,42,.5))}
+
+/* hero: static 3D perspective, no touch tilting */
+.hero{position:relative;height:240px;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;text-align:center;perspective:700px}
+.world{position:absolute;inset:0 0 86px;direction:ltr;transform-style:preserve-3d;transform:rotateX(-12deg)}
+.floor{position:absolute;inset:auto -12% 0;height:120px;transform:translateZ(-20px) rotateX(74deg);background:linear-gradient(var(--edge) 1px,transparent 1px) 0 0/100% 24px,linear-gradient(90deg,var(--edge) 1px,transparent 1px) 0 0/24px 100%;-webkit-mask:radial-gradient(closest-side,#000 30%,transparent);mask:radial-gradient(closest-side,#000 30%,transparent);animation:flow 3s linear infinite}
+@keyframes flow{to{background-position:0 24px,24px 0}}
+.rail{position:absolute;left:82px;right:82px;top:50%;margin-top:-27px;height:2px;background:linear-gradient(90deg,var(--sig),var(--edge2) 50%,var(--sig));opacity:.75}
+.pk{position:absolute;top:-4px;right:0;width:10px;height:10px;background:var(--sig);transform:rotate(45deg);box-shadow:0 0 16px var(--sig);opacity:0;animation:run 2.4s cubic-bezier(.5,0,.5,1) infinite}
+.pk:nth-child(2){animation-delay:.8s}.pk:nth-child(3){animation-delay:1.6s}
+@keyframes run{0%{right:0;opacity:0}12%,88%{opacity:1}100%{right:100%;opacity:0}}
+.node{position:absolute;top:50%;margin-top:-50px;width:50px;height:50px;transform-style:preserve-3d}
+.n1{left:24px}.n2{right:24px}
+.node span{position:absolute;top:68px;left:50%;transform:translateX(-50%);font-size:11px;color:var(--mute);white-space:nowrap;direction:rtl}
+.cube{position:absolute;inset:0;transform-style:preserve-3d;animation:sway 7s ease-in-out infinite alternate}
+.n2 .cube{animation-delay:-3.5s}
+@keyframes sway{from{transform:rotateX(-18deg) rotateY(-32deg)}to{transform:rotateX(-8deg) rotateY(32deg)}}
+.cube>i{position:absolute;inset:0;display:grid;place-items:center;border-radius:6px;border:1px solid var(--edge2);background:linear-gradient(135deg,rgba(255,255,255,.09),rgba(255,255,255,.015))}
+.cube>i:nth-child(1){transform:translateZ(25px);color:var(--sig)}
+.cube>i:nth-child(2){transform:rotateY(180deg) translateZ(25px)}
+.cube>i:nth-child(3){transform:rotateY(90deg) translateZ(25px)}
+.cube>i:nth-child(4){transform:rotateY(-90deg) translateZ(25px)}
+.cube>i:nth-child(5){transform:rotateX(90deg) translateZ(25px)}
+.cube>i:nth-child(6){transform:rotateX(-90deg) translateZ(25px)}
+.cube .ic{width:22px;height:22px}
+.hero h1{font-size:26px;font-weight:800;line-height:1.25}
+.hero p{font-size:12px;color:var(--mute);direction:ltr}
+.chip{margin-top:8px;display:inline-flex;align-items:center;gap:9px;padding:4px 12px;border-radius:99px;font-size:11.5px;background:#0d1320;box-shadow:inset 0 0 0 1px var(--edge2)}
+.dot{width:8px;height:8px;border-radius:50%;color:var(--ok);background:currentColor;animation:ping 1.8s infinite}
+@keyframes ping{from{box-shadow:0 0 0 0 currentColor}to{box-shadow:0 0 0 9px transparent}}
+
+/* slabs: completely flat & static */
+.slab{position:relative;border-radius:22px;padding:18px 16px;display:flex;flex-direction:column;gap:13px;background:linear-gradient(180deg,var(--s1),var(--s2));box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 0 0 1px var(--edge),0 20px 30px -15px #000}
+.hd{display:flex;align-items:center;gap:12px}
+.tile{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;color:var(--sig);background:linear-gradient(145deg,#1d283c,#0c121d);box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 8px 16px -8px #000}
+.hd h2{flex:1;font-size:14.5px;font-weight:700}
+
+/* fields */
+.f{position:relative}
+.l{display:block;font-size:11.5px;color:var(--mute);margin-bottom:6px}
+.f input{width:100%;height:46px;border:0;border-radius:14px;padding:0 44px 0 14px;font:13.5px system-ui,sans-serif;color:var(--ice);direction:ltr;text-align:left;background:#070b12;box-shadow:inset 0 2px 6px rgba(0,0,0,.6),inset 0 0 0 1px var(--edge);outline:0;transition:box-shadow .25s}
+.f input:focus{box-shadow:inset 0 2px 6px rgba(0,0,0,.6),inset 0 0 0 1px var(--sig),0 0 0 3px rgba(255,138,42,.15)}
+.f input::placeholder{color:#44526a}
+.f input[readonly]{color:var(--mute)}
+.f .ic{position:absolute;right:14px;bottom:13px;color:var(--mute);pointer-events:none;transition:.25s}
+.f:focus-within .ic{color:var(--sig);transform:translateY(-2px) scale(1.1)}
+
+/* checkbox */
+.ck{display:flex;gap:12px;cursor:pointer;user-select:none}
+.ck input{position:absolute;opacity:0;pointer-events:none}
+.bx{flex:none;width:22px;height:22px;margin-top:2px;border-radius:8px;display:grid;place-items:center;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--edge2);transition:.25s}
+.bx .ic{width:14px;height:14px;stroke-width:3;filter:none;stroke-dasharray:1;stroke-dashoffset:1;opacity:0;transition:stroke-dashoffset .35s .05s,opacity .1s}
+.ck input:checked+.bx{background:var(--sig);box-shadow:0 6px 14px -6px var(--sig)}
+.ck input:checked+.bx .ic{stroke-dashoffset:0;opacity:1}
+.ck b{display:block;font-size:12.5px;font-weight:600;line-height:1.5}
+.ck small,.hint{display:block;font-size:11px;color:var(--mute);line-height:1.7}
+
+/* tactile 3D buttons */
+.btn{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;height:48px;border:0;border-radius:15px;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer;transition:transform .1s,box-shadow .1s}
+.go{color:#1b0e02;background:linear-gradient(180deg,#ffa04d,var(--sig));box-shadow:0 4px 0 var(--sig2),0 12px 20px -8px rgba(255,138,42,.5),inset 0 1px 0 rgba(255,255,255,.4)}
+.go:active{transform:translateY(3px);box-shadow:0 1px 0 var(--sig2),0 4px 8px -4px rgba(255,138,42,.4)}
+.ghost{color:var(--ice);background:#0e1522;box-shadow:inset 0 0 0 1px var(--edge2),0 3px 0 #070b12}
+.ghost:active{transform:translateY(2px);box-shadow:inset 0 0 0 1px var(--edge2),0 1px 0 #070b12}
+
+/* manual settings collapsible */
+.tg{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;height:36px;border:0;background:none;color:var(--mute);font-family:inherit;font-size:12.5px;font-weight:600;cursor:pointer}
+.tg .ic{width:18px;height:18px}.ch{transition:transform .3s}.tg.up .ch{transform:rotate(180deg)}
+.man{display:none;flex-direction:column;gap:12px;padding-top:4px}
+.st{font-size:11.5px;color:var(--mute);line-height:1.8;padding:12px 14px;border-radius:14px;background:#070b12;box-shadow:inset 0 0 0 1px var(--edge)}
+.st b{color:var(--ice)}
+.pv{display:inline-flex;align-items:center;gap:7px;color:var(--sig);font-size:12px;font-weight:600;text-decoration:none}
+.pv .ic{width:18px;height:18px}
+
+/* note + footer */
+.note{padding:14px 16px;border-radius:18px;background:rgba(255,138,42,.05);box-shadow:inset 0 0 0 1px rgba(255,138,42,.22);display:flex;gap:12px}
+.note b{display:block;color:#ffb36b;font-size:12px}
+.note p{color:#c99a68;font-size:11px;line-height:1.7}
+.note .ic{color:var(--sig);margin-top:2px}
+.ft{text-align:center;font-size:10.5px;color:#56647c;line-height:1.8}
+.ft div:last-child{direction:ltr}
+
+#toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom));max-width:min(400px,calc(100vw - 32px));padding:12px 18px;border-radius:16px;background:#101827;color:var(--ice);font-size:12.5px;text-align:center;white-space:pre-line;box-shadow:inset 0 0 0 1px var(--edge2),0 20px 40px -12px #000;transform:translate(-50%,30px);opacity:0;pointer-events:none;transition:.3s ease-out;z-index:999}
+#toast.show{opacity:1;transform:translate(-50%,0)}
+#toast.ok{box-shadow:inset 0 0 0 1px var(--ok),0 20px 40px -12px #000}
+#toast.bad{box-shadow:inset 0 0 0 1px var(--bad),0 20px 40px -12px #000}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<symbol id="i-key" viewBox="0 0 24 24"><circle cx="8" cy="15" r="4"/><path d="M11 12l8-8M16 7l3 3M14 9l2 2"/></symbol>
+<symbol id="i-cloud" viewBox="0 0 24 24"><path d="M7 18a4 4 0 010-8 5.5 5.5 0 0110.6 1.2A3.4 3.4 0 0117 18z"/><path d="M12 11l-2 3h4l-2 3"/></symbol>
+<symbol id="i-wave" viewBox="0 0 24 24"><path d="M3 9c3-3 6 3 9 0s6-3 9 0M3 15c3-3 6 3 9 0s6-3 9 0"/></symbol>
+<symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3.5"/><path d="M4 8l8 6 8-6"/></symbol>
+<symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="3"/><path d="M8 11V8a4 4 0 018 0v3"/></symbol>
+<symbol id="i-launch" viewBox="0 0 24 24"><path d="M13 5h6v6M19 5l-8 8"/><path d="M17 14v3a2 2 0 01-2 2H7a2 2 0 01-2-2V9a2 2 0 012-2h3"/></symbol>
+<symbol id="i-pulse" viewBox="0 0 24 24"><path d="M3 12h4l2-6 4 12 2-6h6"/></symbol>
+<symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 8h9M17 8h3M4 16h3M11 16h9"/><circle cx="15" cy="8" r="2"/><circle cx="9" cy="16" r="2"/></symbol>
+<symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 5-3 8-7 10-4-2-7-5-7-10V6z"/><path d="M9 12l2 2 4-4"/></symbol>
+<symbol id="i-chev" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5"/></symbol>
+<symbol id="i-phone" viewBox="0 0 24 24"><rect x="7" y="3" width="10" height="18" rx="3"/><path d="M11 18h2"/></symbol>
+<symbol id="i-warn" viewBox="0 0 24 24"><path d="M12 4l9 16H3z"/><path d="M12 10v4M12 17h.01"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><path pathLength="1" d="M5 12l4.5 4.5L19 7"/></symbol>
+</defs></svg>
+
+<main class="app">
+
+<!-- هیرو سه‌بعدی متحرک (کاملاً ثابت، بدون کج‌شدن با لمس) -->
+<header class="hero" id="hero">
+  <div class="world">
+    <div class="floor"></div>
+    <div class="rail"><b class="pk"></b><b class="pk"></b><b class="pk"></b></div>
+    <div class="node n1"><div class="cube"><i><svg class="ic"><use href="#i-cloud"/></svg></i><i></i><i></i><i></i><i></i><i></i></div><span>کلودفلر</span></div>
+    <div class="node n2"><div class="cube"><i><svg class="ic"><use href="#i-phone"/></svg></i><i></i><i></i><i></i><i></i><i></i></div><span>گوشی</span></div>
+  </div>
+  <h1>پل کلودفلر</h1>
+  <p>Cloudflare Bridge</p>
+  <div class="chip"><span class="dot"></span><span id="bridgeBadge">پل فعال · US Oregon</span></div>
+</header>
+
+<!-- بخش ۱: اتصال به کلودفلر خودت -->
+<section class="slab s1">
+  <div class="hd"><div class="tile"><svg class="ic"><use href="#i-key"/></svg></div><h2>۱. اتصال به کلودفلر خودت</h2></div>
+  <div class="f"><label class="l" for="cfTokenInput">کلودفلر API Token</label><input type="password" id="cfTokenInput" placeholder="Cloudflare API Token — never your password" autocomplete="off"><svg class="ic"><use href="#i-lock"/></svg></div>
+  <label class="ck"><input type="checkbox" id="usCheck" checked><span class="bx"><svg class="ic"><use href="#i-check"/></svg></span><span><b>راهنمای اجرای Cloudflare نزدیک US East</b><small>این گزینه IP ثابت یا کشور خروجی تأییدشده نمی‌دهد؛ حساب AWS هم لازم نیست.</small></span></label>
+  <button class="btn go" onclick="autoProvision()"><svg class="ic"><use href="#i-cloud"/></svg>ساخت خودکار روی حساب من</button>
+  <p class="hint">این دکمه یک Worker جدید و در صورت نبودن، workers.dev حساب را می‌سازد. Worker فعلی عمداً جایگزین نمی‌شود؛ مصرف و هزینه تابع حساب خودت است.</p>
+</section>
+
+<!-- بخش ۲: ورود یا ثبت‌نام Muse -->
+<section class="slab s2">
+  <div class="hd"><div class="tile"><svg class="ic"><use href="#i-wave"/></svg></div><h2><span>۲. ورود یا ثبت‌نام Muse</span></h2></div>
+
+  <div class="f"><label class="l" for="emailInput">ایمیل حساب Muse · اختیاری برای پرکردن فرم</label><input type="email" id="emailInput" placeholder="you@example.com" value=""><svg class="ic"><use href="#i-mail"/></svg></div>
+  <div class="f"><label class="l" for="passwordInput">رمز مخصوص Muse · نه رمز Gmail · اختیاری</label><input type="text" id="passwordInput" placeholder="Muse password only — leave blank" readonly><svg class="ic"><use href="#i-lock"/></svg></div>
+
+  <label class="ck"><input type="checkbox" checked><span class="bx"><svg class="ic"><use href="#i-check"/></svg></span><span><b>فرم ورود رسمی را پر کن و حداکثر دو بار «ادامه/ورود» را بزن.</b><small>ایمیل و رمز در این برنامه ذخیره نمی‌شوند. در صورت نیاز به کد یا CAPTCHA، کنترل به خودت برمی‌گردد. دسترسی به صندوق ایمیل درخواست نمی‌شود.</small></span></label>
+
+  <button class="btn go" id="btnLaunch" onclick="launchMuse()"><svg class="ic"><use href="#i-launch"/></svg><span>باز کردن Muse و ادامهٔ ورود</span></button>
+  <button class="btn ghost" onclick="testBridge()"><svg class="ic"><use href="#i-pulse"/></svg>آزمایش پل ذخیره‌شده</button>
+
+  <button class="tg" id="tg" onclick="toggleManualSettings()" aria-expanded="false"><svg class="ic"><use href="#i-sliders"/></svg>تنظیمات دستی / بازیابی پل<svg class="ic ch" id="toggleArrow"><use href="#i-chev"/></svg></button>
+
+  <div class="man" id="manualSettingsSection">
+    <div class="f"><label class="l" for="workerOriginInput">مبدأ Worker</label><input type="text" id="workerOriginInput" value="https://bridge.nguts.my.id"><svg class="ic"><use href="#i-cloud"/></svg></div>
+    <div class="f"><label class="l" for="bridgeTokenInput">کلید پل BRIDGE_TOKEN · نه توکن API کلودفلر</label><input type="password" id="bridgeTokenInput" value="bridge_sec_7c6ee6655b535a9851959c875f7b2195"><svg class="ic"><use href="#i-key"/></svg></div>
+    <div class="st" id="workerStatusDisplay">Worker پاسخ سالم داد. خروجی سرور: <b>Oregon, United States</b>. مقصد پاسخ شبکه داد؛ HTTP 200 OK.</div>
+    <a href="#" class="pv" onclick="openPrivacyGuide();return false"><svg class="ic"><use href="#i-shield"/></svg>راهنمای توکن و حریم خصوصی</a>
+  </div>
+</section>
+
+<!-- کادر هشدار نسخه آزمایشی -->
+<div class="slab note">
+  <svg class="ic"><use href="#i-warn"/></svg>
+  <div><b>نسخهٔ آزمایشی؛ کشور و ورود تضمین نشده</b><p>CAPTCHA و کد را خودت داخل سایت کامل می‌کنی؛ رمز Gmail لازم نیست. این برنامه فقط همین مرورگر را تونل می‌کند، نه کل HTTPS گوشی را.</p></div>
+</div>
+
+<footer class="ft"><div>مستقل از Muse، Meta و Cloudflare.</div><div>v0.2-auto-test · Android 8+ · local provisioning</div></footer>
+
+</main>
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script>
+const $=id=>document.getElementById(id);
+let tt;
+function toast(m,k){const t=$('toast');t.textContent=m;t.className='show '+(k||'');clearTimeout(tt);tt=setTimeout(()=>t.className='',3400)}
+
+function toggleManualSettings(){
+  const sec=$('manualSettingsSection');
+  const open = sec.style.display==='flex';
+  sec.style.display = open ? 'none' : 'flex';
+  $('tg').classList.toggle('up', !open);
+}
+
+function launchMuse(){
+  const email=$('emailInput').value.trim();
+  const endpoint=$('workerOriginInput').value.trim();
+  const token=$('bridgeTokenInput').value.trim();
+  toast('در حال فعال‌سازی پل آمریکا و ورود به Meta Muse...');
+  setTimeout(()=>{
+    window.location.href = 'bridge://launch?url=' + encodeURIComponent('https://muse.ai/') +
+      '&email=' + encodeURIComponent(email) +
+      '&endpoint=' + encodeURIComponent(endpoint) +
+      '&token=' + encodeURIComponent(token);
+  }, 200);
+}
+
+function testBridge(){
+  const s=$('workerStatusDisplay'),origin=$('workerOriginInput').value.trim(),token=$('bridgeTokenInput').value.trim();
+  s.style.color='';s.textContent='در حال بررسی اتصال به ورکر و تست خروجی...';
+  toast('در حال ارسال درخواست آزمایش پل...');
+  window.location.href = 'bridge://check?endpoint=' + encodeURIComponent(origin) + '&token=' + encodeURIComponent(token);
+}
+
+function autoProvision(){
+  const tok=$('cfTokenInput').value.trim();
+  if(!tok){toast('لطفاً ابتدا کلودفلر API Token خود را وارد کنید.','bad');$('cfTokenInput').focus();return}
+  toast('در حال ساخت خودکار ورکر روی حساب کلودفلر شما...');
+  window.location.href='bridge://provision?token='+encodeURIComponent(tok)+'&us='+$('usCheck').checked;
+}
+
+function openPrivacyGuide(){
+  toast('هیچ رمز یا اطلاعات حسابی روی ورکر کلودفلر ذخیره نمی‌شود و تمام ترافیک با رمزنگاری TLS عبور می‌کند.');
+}
+</script>
+</body>
+</html>
