@@ -6,7 +6,7 @@
 
 <br/>
 
-<a href="https://github.com/imgutss/pol-cloudflare-bridge/releases/latest">
+<a href="https://github.com/imgutss/pol-cloudflare-bridge/releases/download/v1.0.0/Pol-Cloudflare-Bridge.apk">
   <img src="https://img.shields.io/badge/دانلود%20مستقیم%20APK-نسخه%20نهایی%20v1.0.0-FF8A2A?style=for-the-badge&logo=android&logoColor=white" alt="Download APK" />
 </a>
 <a href="https://github.com/imgutss/pol-cloudflare-bridge/stargazers">
