@@ -1,0 +1,47 @@
+name: Build APK
+
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - "android/**"
+      - ".github/workflows/build-apk.yml"
+  workflow_dispatch:
+
+jobs:
+  build-apk:
+    name: Build & sign APK with apktool
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Install apktool
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq apktool
+
+      - name: Build APK with apktool
+        run: |
+          apktool b android -o app-unsigned.apk
+          ls -la app-unsigned.apk
+
+      - name: Generate debug keystore and sign APK
+        run: |
+          keytool -genkeypair -keystore debug.keystore -alias solina -storepass android -keypass android -keyalg RSA -keysize 2048 -validity 10000 -dname "CN=Solina Bridge, OU=Solina, O=Solina, C=IR"
+          jarsigner -verbose -sigalg SHA256withRSA -digestalg SHA-256 -keystore debug.keystore -storepass android -keypass android app-unsigned.apk solina
+          cp app-unsigned.apk SolinaBridge-v0.3-multi-ai.apk
+          ls -la SolinaBridge-v0.3-multi-ai.apk
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: SolinaBridge-v0.3-multi-ai
+          path: SolinaBridge-v0.3-multi-ai.apk
+          if-no-files-found: error
