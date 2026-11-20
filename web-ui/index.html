@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <meta name="theme-color" content="#06080d">
-<title>پل کلودفلر · Cloudflare Bridge</title>
+<title>پل سولینا · Solina Bridge</title>
 <style>
 :root{--ink:#06080d;--s1:#131b2a;--s2:#0a0f18;--edge:#1d2738;--edge2:#2d3b54;--ice:#eaf0f8;--mute:#7c8ba1;--sig:#ff8a2a;--sig2:#b85a0c;--ok:#5be3b0;--bad:#ff5568}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
@@ -78,6 +78,10 @@ body{min-height:100vh;color:var(--ice);font:14px/1.7 system-ui,-apple-system,Bli
 .ghost{color:var(--ice);background:#0e1522;box-shadow:inset 0 0 0 1px var(--edge2),0 3px 0 #070b12}
 .ghost:active{transform:translateY(2px);box-shadow:inset 0 0 0 1px var(--edge2),0 1px 0 #070b12}
 
+/* AI site grid */
+.ai-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.ai-grid .btn{justify-content:flex-start;padding:0 14px;font-size:13px}
+
 /* manual settings collapsible */
 .tg{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;height:36px;border:0;background:none;color:var(--mute);font-family:inherit;font-size:12.5px;font-weight:600;cursor:pointer}
 .tg .ic{width:18px;height:18px}.ch{transition:transform .3s}.tg.up .ch{transform:rotate(180deg)}
@@ -128,8 +132,8 @@ body{min-height:100vh;color:var(--ice);font:14px/1.7 system-ui,-apple-system,Bli
     <div class="node n1"><div class="cube"><i><svg class="ic"><use href="#i-cloud"/></svg></i><i></i><i></i><i></i><i></i><i></i></div><span>کلودفلر</span></div>
     <div class="node n2"><div class="cube"><i><svg class="ic"><use href="#i-phone"/></svg></i><i></i><i></i><i></i><i></i><i></i></div><span>گوشی</span></div>
   </div>
-  <h1>پل کلودفلر</h1>
-  <p>Cloudflare Bridge</p>
+  <h1>پل سولینا</h1>
+  <p>Solina Bridge</p>
   <div class="chip"><span class="dot"></span><span id="bridgeBadge">پل فعال · US Oregon</span></div>
 </header>
 
@@ -164,13 +168,28 @@ body{min-height:100vh;color:var(--ice);font:14px/1.7 system-ui,-apple-system,Bli
   </div>
 </section>
 
+<!-- بخش ۳: هوش‌های دیگه -->
+<section class="slab s3">
+  <div class="hd"><div class="tile"><svg class="ic"><use href="#i-launch"/></svg></div><h2><span>۳. هوش‌های دیگه</span></h2></div>
+  <p class="hint">هر کدوم رو بزنی، همون سایت از همین پل آمریکا باز می‌شه. ورود رو خودت تو صفحهٔ خود سایت انجام می‌دی؛ پرکردن خودکار فرم فقط برای Museـه.</p>
+  <div class="ai-grid">
+    <button class="btn ghost" onclick="launchSite('https://gemini.google.com/','Gemini')"><svg class="ic"><use href="#i-launch"/></svg>Gemini</button>
+    <button class="btn ghost" onclick="launchSite('https://aistudio.google.com/','Google AI Studio')"><svg class="ic"><use href="#i-launch"/></svg>AI Studio</button>
+    <button class="btn ghost" onclick="launchSite('https://grok.com/','Grok')"><svg class="ic"><use href="#i-launch"/></svg>Grok</button>
+    <button class="btn ghost" onclick="launchSite('https://chatgpt.com/','ChatGPT')"><svg class="ic"><use href="#i-launch"/></svg>ChatGPT</button>
+    <button class="btn ghost" onclick="launchSite('https://claude.ai/','Claude')"><svg class="ic"><use href="#i-launch"/></svg>Claude</button>
+    <button class="btn ghost" onclick="launchSite('https://chat.deepseek.com/','DeepSeek')"><svg class="ic"><use href="#i-launch"/></svg>DeepSeek</button>
+    <button class="btn ghost" onclick="launchSite('https://www.perplexity.ai/','Perplexity')"><svg class="ic"><use href="#i-launch"/></svg>Perplexity</button>
+  </div>
+</section>
+
 <!-- کادر هشدار نسخه آزمایشی -->
 <div class="slab note">
   <svg class="ic"><use href="#i-warn"/></svg>
   <div><b>نسخهٔ آزمایشی؛ کشور و ورود تضمین نشده</b><p>CAPTCHA و کد را خودت داخل سایت کامل می‌کنی؛ رمز Gmail لازم نیست. این برنامه فقط همین مرورگر را تونل می‌کند، نه کل HTTPS گوشی را.</p></div>
 </div>
 
-<footer class="ft"><div>مستقل از Muse، Meta و Cloudflare.</div><div>v0.2-auto-test · Android 8+ · local provisioning</div></footer>
+<footer class="ft"><div>مستقل از Muse، Meta و Cloudflare.</div><div>v0.3-multi-ai · Android 8+ · local provisioning</div></footer>
 
 </main>
 <div id="toast" role="status" aria-live="polite"></div>
@@ -194,6 +213,19 @@ function launchMuse(){
   toast('در حال فعال‌سازی پل آمریکا و ورود به Meta Muse...');
   setTimeout(()=>{
     window.location.href = 'bridge://launch?url=' + encodeURIComponent('https://muse.ai/') +
+      '&email=' + encodeURIComponent(email) +
+      '&endpoint=' + encodeURIComponent(endpoint) +
+      '&token=' + encodeURIComponent(token);
+  }, 200);
+}
+
+function launchSite(url, name){
+  const email=$('emailInput').value.trim();
+  const endpoint=$('workerOriginInput').value.trim();
+  const token=$('bridgeTokenInput').value.trim();
+  toast('در حال فعال‌سازی پل آمریکا و باز کردن ' + name + '...');
+  setTimeout(()=>{
+    window.location.href = 'bridge://launch?url=' + encodeURIComponent(url) +
       '&email=' + encodeURIComponent(email) +
       '&endpoint=' + encodeURIComponent(endpoint) +
       '&token=' + encodeURIComponent(token);
