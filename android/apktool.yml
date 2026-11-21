@@ -1,5 +1,5 @@
 !!brut.androlib.meta.MetaInfo
-apkFileName: پل کلود فلر.apk
+apkFileName: Solina CF-Bridge.apk
 compressionType: false
 doNotCompress:
 - resources.arsc
@@ -22,5 +22,5 @@ usesFramework:
   tag: null
 version: 2.7.0-dirty
 versionInfo:
-  versionCode: '2'
-  versionName: 0.2-auto-test
+  versionCode: '3'
+  versionName: 1.0.0
