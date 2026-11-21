@@ -57,6 +57,8 @@
     .locals 0
 
     .line 430
+    invoke-static {p1, p2}, Lapp/solina/cfbridge/GeminiInsets;->onPageStarted(Landroid/webkit/WebView;Ljava/lang/String;)V
+
     invoke-static {p2}, Lokhttp3/HttpUrl;->parse(Ljava/lang/String;)Lokhttp3/HttpUrl;
 
     move-result-object p1

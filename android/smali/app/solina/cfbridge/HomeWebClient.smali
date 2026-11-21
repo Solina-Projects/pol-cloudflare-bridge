@@ -17,6 +17,16 @@
 .end method
 
 # virtual methods
+.method public onPageStarted(Landroid/webkit/WebView;Ljava/lang/String;Landroid/graphics/Bitmap;)V
+    .locals 0
+
+    invoke-static {p1, p2}, Lapp/solina/cfbridge/GeminiInsets;->onPageStarted(Landroid/webkit/WebView;Ljava/lang/String;)V
+
+    invoke-super {p0, p1, p2, p3}, Landroid/webkit/WebViewClient;->onPageStarted(Landroid/webkit/WebView;Ljava/lang/String;Landroid/graphics/Bitmap;)V
+
+    return-void
+.end method
+
 .method public shouldOverrideUrlLoading(Landroid/webkit/WebView;Landroid/webkit/WebResourceRequest;)Z
     .locals 2
 
