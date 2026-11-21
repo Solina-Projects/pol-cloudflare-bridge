@@ -2,17 +2,19 @@
 
 <img src="./docs/assets/pol-community-cover.png" width="100%" alt="تصویر فضایی آنتی‌گرویتی، متا، جمنای و کلودفلر" />
 
-# 🌌 Pol Cloudflare Bridge
+# 🌌 Solina CF-Bridge
 
 ### آنتی‌گرویتی، مدل‌های آفلاین و پل ابری؛ کنار هم، روی اندروید
 
 **یک داشبورد · چند مسیر هوش مصنوعی · انتخاب با تو**
 
+> **Solina CF-Bridge** فورکی از [Pol Cloudflare Bridge](https://github.com/imgutss/pol-cloudflare-bridge) ساختهٔ imgutss است که توسط [Solina-Projects](https://github.com/Solina-Projects) نگهداری می‌شود. داشبورد چند هوش مصنوعی (Gemini، Google AI Studio، Grok، ChatGPT، Claude، DeepSeek، Perplexity)، شناسهٔ `app.solina.cfbridge` و امضای سولینا را دارد و اصلاح کیبورد Gemini بالادستی را در برنامه وصل کرده است. قابلیت‌های v1.0.1 بالادستی (موتور Antigravity و گفت‌وگوی آفلاین) در حال انتقال‌اند.
+
 <br/>
 
-<a href="https://github.com/imgutss/pol-cloudflare-bridge/releases/download/v1.0.1/Pol-Cloudflare-Bridge.apk"><img src="https://img.shields.io/badge/⬇_دانلود_APK-v1.0.1-8B5CF6?style=for-the-badge&logo=android&logoColor=white" alt="دانلود نسخه 1.0.1" /></a>
+<a href="https://github.com/Solina-Projects/pol-cloudflare-bridge/releases/tag/v1.0.0"><img src="https://img.shields.io/badge/⬇_دانلود_APK-v1.0.0-8B5CF6?style=for-the-badge&logo=android&logoColor=white" alt="دانلود نسخه 1.0.0" /></a>
 <a href="./README.md"><img src="https://img.shields.io/badge/English-Documentation-06B6D4?style=for-the-badge" alt="English documentation" /></a>
-<a href="https://github.com/imgutss/pol-cloudflare-bridge/stargazers"><img src="https://img.shields.io/badge/⭐_Star-حمایت_از_پروژه-F59E0B?style=for-the-badge" alt="ستاره دادن به پروژه" /></a>
+<a href="https://github.com/Solina-Projects/pol-cloudflare-bridge/stargazers"><img src="https://img.shields.io/badge/⭐_Star-حمایت_از_پروژه-F59E0B?style=for-the-badge" alt="ستاره دادن به پروژه" /></a>
 
 <br/><br/>
 
@@ -36,7 +38,7 @@
 | محیط و موتور روی گوشی | مرورگر داخلی سرویس‌ها | مدل متنی روی CPU | اتصال قابل تنظیم |
 | انتخاب مدل و گفت‌وگو در محیط | اصلاح کیبورد Gemini | پاسخ تدریجی و Markdown | بدون سرور جداگانه |
 
-> **Pol یک کلاینت مستقل است، نه محصول رسمی Google یا Cloudflare.** دسترسی و قابلیت‌های هر سرویس به حساب، مدل، مجوزها و شرایط سرویس وابسته‌اند.
+> **Solina CF-Bridge یک کلاینت مستقل است، نه محصول رسمی Google یا Cloudflare.** دسترسی و قابلیت‌های هر سرویس به حساب، مدل، مجوزها و شرایط سرویس وابسته‌اند.
 
 ---
 
@@ -44,7 +46,7 @@
 
 ## 🪐 آنتی‌گرویتی — قلب تجربه
 
-آنتی‌گرویتی فقط یک لینک روی داشبورد نیست؛ در Pol یک **محیط و موتور محلی روی گوشی** باز می‌شود تا بتوانی در همان محیط، حساب و مدل را انتخاب کنی و گفت‌وگو را ادامه بدهی. بخش آنلاین و آفلاین برنامه مسیرهای مستقل خودشان را دارند.
+آنتی‌گرویتی فقط یک لینک روی داشبورد نیست؛ در Solina CF-Bridge یک **محیط و موتور محلی روی گوشی** باز می‌شود تا بتوانی در همان محیط، حساب و مدل را انتخاب کنی و گفت‌وگو را ادامه بدهی. بخش آنلاین و آفلاین برنامه مسیرهای مستقل خودشان را دارند.
 
 | 🎛️ مرکز کنترل مدل | 🔌 مدل API سفارشی |
 | :--- | :--- |
@@ -74,7 +76,7 @@
 
 ```mermaid
 flowchart TD
-    App["📱 POL · Android Dashboard"]
+    App["📱 SOLINA CF-BRIDGE · Android Dashboard"]
     App --> AG["🪐 ANTIGRAVITY"]
     App --> Web["🌐 IN-APP BROWSER"]
     App --> Off["🧠 OFFLINE CHAT"]
@@ -111,7 +113,7 @@ flowchart TD
 ### 🔀 نقشهٔ شاخه‌ها در یک نگاه
 
 ```text
-Pol
+Solina CF-Bridge
 ├── 🪐 Antigravity
 │   ├── موتور و رابط روی گوشی
 │   ├── حساب Google و مدل‌های قابل‌دسترسی حساب
@@ -156,7 +158,7 @@ Pol
 
 ## 🚀 شروع سریع
 
-**۱. نصب** — [APK نسخهٔ 1.0.1](https://github.com/imgutss/pol-cloudflare-bridge/releases/download/v1.0.1/Pol-Cloudflare-Bridge.apk) را دانلود و نصب کن.
+**۱. نصب** — [APK نسخهٔ 1.0.0](https://github.com/Solina-Projects/pol-cloudflare-bridge/releases/download/v1.0.0/SolinaCF-Bridge-v1.0.0.apk) را دانلود و نصب کن.
 
 **۲. انتخاب مسیر** — برای Antigravity کارت آن را باز کن؛ برای گفت‌وگوی محلی به بخش آفلاین برو و مدل مورد نظرت را دانلود کن.
 
@@ -170,15 +172,17 @@ Pol
 
 | نسخه | حجم | پیش‌نیاز | دریافت |
 | :---: | :---: | :---: | :---: |
-| **v1.0.1** | حدود **۱۶۸ مگابایت** | Android 8+؛ آفلاین: ARM64 و حافظهٔ کافی | [⬇️ دانلود APK](https://github.com/imgutss/pol-cloudflare-bridge/releases/download/v1.0.1/Pol-Cloudflare-Bridge.apk) |
+| **v1.0.0** | حدود **۱٫۴ مگابایت** | Android 8+ | [⬇️ دانلود APK](https://github.com/Solina-Projects/pol-cloudflare-bridge/releases/download/v1.0.0/SolinaCF-Bridge-v1.0.0.apk) |
+
+> نسخهٔ 1.0.1 بالادستی (حدود ۱۶۸ مگابایت، با موتور Antigravity و گفت‌وگوی آفلاین) در حال انتقال به این فورک است؛ یادداشت فورک در بالای صفحه را ببین.
 
 > پیش از نصب از داده‌های مهم پشتیبان بگیر. اگر نسخهٔ نصب‌شده امضای متفاوتی داشته باشد، نصب روی نسخهٔ قبلی ممکن است پذیرفته نشود؛ حذف برنامه می‌تواند داده‌های آن را پاک کند.
 
 <details>
 <summary><b>🔍 جزئیات فایل و وضعیت سورس</b></summary>
 
-- SHA-256: `4416f0fae025d471936bef2a639485040f1ce67d6ef5deb4cf294cfce36e86fe`
-- کیبورد Gemini در یک دستگاه توسط کاربر تأیید شده؛ همهٔ دستگاه‌ها و نسخه‌های WebView آزمایش نشده‌اند.
+- SHA-256: `fe0a5e45bffbaf98f63d90a0b35de2752be07262c4580dd5bea5684b11a4e2ef`
+- اصلاح فضای کیبورد Gemini در این فورک وصل شده است (GeminiInsets)؛ تست روی دستگاه هنوز انجام نشده و همهٔ دستگاه‌ها و نسخه‌های WebView آزمایش نشده‌اند.
 - مخزن شامل منابع نسخه‌های قبلی و [قطعات منتخب تغییرات](./android/patches/v1.0.1/) است؛ **سورس کامل و فرایند بازتولید مستقل APK فعلاً موجود نیست**.
 - اجزای همراه و مدل‌های جداگانه ممکن است شرایط مجوز خودشان را داشته باشند.
 
@@ -190,8 +194,8 @@ Pol
 
 ### 🌌 یک پل برای کشف مسیرهای بیشتر
 
-[📦 انتشارها](https://github.com/imgutss/pol-cloudflare-bridge/releases) · [📋 تاریخچه تغییرات](./CHANGELOG.md) · [🔒 امنیت](./SECURITY.md) · [🤝 مشارکت](./CONTRIBUTING.md)
+[📦 انتشارها](https://github.com/Solina-Projects/pol-cloudflare-bridge/releases) · [📋 تاریخچه تغییرات](./CHANGELOG.md) · [🔒 امنیت](./SECURITY.md) · [🤝 مشارکت](./CONTRIBUTING.md)
 
-**ساخته‌شده توسط [Guts · imgutss](https://github.com/imgutss)**
+**فورک Solina CF-Bridge توسط [Solina-Projects](https://github.com/Solina-Projects) — بر پایهٔ Pol Cloudflare Bridge ساختهٔ [Guts · imgutss](https://github.com/imgutss)**
 
 </div>

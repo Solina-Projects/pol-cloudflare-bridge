@@ -1,9 +1,27 @@
 # Changelog
 
-All notable changes to **Pol Cloudflare Bridge** will be documented in this file.
+All notable changes to **Solina CF-Bridge** (a fork of Pol Cloudflare Bridge) will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+---
+
+## [Solina CF-Bridge 1.0.0] - 2026-11-21
+
+### 🚀 Added
+- **Multi-AI dashboard:** Gemini, Google AI Studio, Grok, ChatGPT, Claude, DeepSeek and Perplexity alongside Muse.
+- **Gemini keyboard fix wired in:** upstream's GeminiInsets ported to smali and hooked into the in-app browser's `onPageStarted` (device testing pending).
+- **Upstream v1.0.1 sync:** docs, changelog, v1.0.1 patches and cover art synced from imgutss.
+
+### 🔀 Changed
+- **Rebrand:** package `app.pol.bridge` → `app.solina.cfbridge`, app name → Solina CF-Bridge, version 1.0.0 (versionCode 3).
+- **Signing:** persistent Solina release keystore; APKs are zipaligned (fixes install error -124).
+- **Docs:** README/CHANGELOG rebranded to Solina CF-Bridge; download links point at this fork's releases.
+
+### ℹ️ Notes
+- Upstream v1.0.1 features (Antigravity engine, offline chat) are being ported; offline LLM integration is in progress.
+- Upstream entries below are historical, from Pol Cloudflare Bridge by imgutss.
 
 ---
 

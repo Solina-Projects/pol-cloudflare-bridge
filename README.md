@@ -2,17 +2,19 @@
 
 <img src="./docs/assets/pol-community-cover.png" width="100%" alt="Cosmic illustration of Antigravity, Meta, Gemini and Cloudflare" />
 
-# 🌌 Pol Cloudflare Bridge
+# 🌌 Solina CF-Bridge
 
 ### Antigravity, offline models and a cloud bridge — together on Android
 
 **One dashboard · Multiple AI paths · Your choice**
 
+> **Solina CF-Bridge** is a fork of [Pol Cloudflare Bridge](https://github.com/imgutss/pol-cloudflare-bridge) by imgutss, maintained by [Solina-Projects](https://github.com/Solina-Projects). It adds a multi-AI dashboard (Gemini, Google AI Studio, Grok, ChatGPT, Claude, DeepSeek, Perplexity), ships as package `app.solina.cfbridge` signed with the Solina key, and wires upstream's Gemini keyboard fix into the app. Upstream v1.0.1 features below (Antigravity engine, offline chat) are being ported.
+
 <br/>
 
-<a href="https://github.com/imgutss/pol-cloudflare-bridge/releases/download/v1.0.1/Pol-Cloudflare-Bridge.apk"><img src="https://img.shields.io/badge/⬇_DOWNLOAD_APK-v1.0.1-8B5CF6?style=for-the-badge&logo=android&logoColor=white" alt="Download v1.0.1 APK" /></a>
+<a href="https://github.com/Solina-Projects/pol-cloudflare-bridge/releases/tag/v1.0.0"><img src="https://img.shields.io/badge/⬇_DOWNLOAD_APK-v1.0.0-8B5CF6?style=for-the-badge&logo=android&logoColor=white" alt="Download v1.0.0 APK" /></a>
 <a href="./README_FA.md"><img src="https://img.shields.io/badge/راهنمای_فارسی-Persian_Docs-06B6D4?style=for-the-badge" alt="Persian documentation" /></a>
-<a href="https://github.com/imgutss/pol-cloudflare-bridge/stargazers"><img src="https://img.shields.io/badge/⭐_STAR-SUPPORT_PROJECT-F59E0B?style=for-the-badge" alt="Star this repository" /></a>
+<a href="https://github.com/Solina-Projects/pol-cloudflare-bridge/stargazers"><img src="https://img.shields.io/badge/⭐_STAR-SUPPORT_PROJECT-F59E0B?style=for-the-badge" alt="Star this repository" /></a>
 
 <br/><br/>
 
@@ -36,7 +38,7 @@
 | On-device environment & engine | In-app service browser | Text models on CPU | Configurable connection |
 | Choose a model and chat | Gemini keyboard handling | Progressive output & Markdown | No separate server required |
 
-> **Pol is an independent client, not an official Google or Cloudflare product.** Service access and capabilities depend on your account, model, permissions and service conditions.
+> **Solina CF-Bridge is an independent client, not an official Google or Cloudflare product.** Service access and capabilities depend on your account, model, permissions and service conditions.
 
 ---
 
@@ -44,7 +46,7 @@
 
 ## 🪐 Antigravity — the centerpiece
 
-Antigravity is more than a dashboard shortcut. Pol opens an **on-device environment and engine** where you can sign in if needed, select an available model and continue a conversation. The app's browser and offline chat remain separate paths.
+Antigravity is more than a dashboard shortcut. Solina CF-Bridge opens an **on-device environment and engine** where you can sign in if needed, select an available model and continue a conversation. The app's browser and offline chat remain separate paths.
 
 | 🎛️ Model control | 🔌 Custom API model |
 | :--- | :--- |
@@ -74,7 +76,7 @@ Four paths begin at the same dashboard, but they do not all share the same netwo
 
 ```mermaid
 flowchart TD
-    App["📱 POL · Android Dashboard"]
+    App["📱 SOLINA CF-BRIDGE · Android Dashboard"]
     App --> AG["🪐 ANTIGRAVITY"]
     App --> Web["🌐 IN-APP BROWSER"]
     App --> Off["🧠 OFFLINE CHAT"]
@@ -111,7 +113,7 @@ flowchart TD
 ### 🔀 Branch map at a glance
 
 ```text
-Pol
+Solina CF-Bridge
 ├── 🪐 Antigravity
 │   ├── On-device engine and interface
 │   ├── Google account and available models
@@ -156,7 +158,7 @@ Access, account features, speed and regional restrictions depend on the service 
 
 ## 🚀 Quick start
 
-**1. Install** — Download and install the [v1.0.1 APK](https://github.com/imgutss/pol-cloudflare-bridge/releases/download/v1.0.1/Pol-Cloudflare-Bridge.apk).
+**1. Install** — Download and install the [v1.0.0 APK](https://github.com/Solina-Projects/pol-cloudflare-bridge/releases/download/v1.0.0/SolinaCF-Bridge-v1.0.0.apk).
 
 **2. Choose a path** — Open Antigravity from its card, or go to Offline AI and download a compatible model.
 
@@ -170,15 +172,17 @@ Access, account features, speed and regional restrictions depend on the service 
 
 | Version | Size | Requirements | Get it |
 | :---: | :---: | :---: | :---: |
-| **v1.0.1** | ~**168 MB** | Android 8+; offline: ARM64 and sufficient memory | [⬇️ Download APK](https://github.com/imgutss/pol-cloudflare-bridge/releases/download/v1.0.1/Pol-Cloudflare-Bridge.apk) |
+| **v1.0.0** | ~**1.4 MB** | Android 8+ | [⬇️ Download APK](https://github.com/Solina-Projects/pol-cloudflare-bridge/releases/download/v1.0.0/SolinaCF-Bridge-v1.0.0.apk) |
+
+> Upstream v1.0.1 (~168 MB, with the Antigravity engine and offline chat) is being ported to this fork; see the fork note at the top.
 
 > Back up important data before installing. Android may reject an in-place update if the installed APK uses a different signing key; uninstalling can erase app data.
 
 <details>
 <summary><b>🔍 File details and source status</b></summary>
 
-- SHA-256: `4416f0fae025d471936bef2a639485040f1ce67d6ef5deb4cf294cfce36e86fe`
-- The Gemini keyboard was confirmed by a user on a device; not all devices and WebView versions have been tested.
+- SHA-256: `fe0a5e45bffbaf98f63d90a0b35de2752be07262c4580dd5bea5684b11a4e2ef`
+- Gemini keyboard inset handling is wired into this fork (`GeminiInsets`, smali); device testing is pending, and not all devices and WebView versions have been tested.
 - The repository contains earlier sources and [selected patches](./android/patches/v1.0.1/); the **complete source and an independent reproducible APK build are not currently available**.
 - Bundled components and separately downloaded models may have their own license terms.
 
@@ -190,8 +194,8 @@ Access, account features, speed and regional restrictions depend on the service 
 
 ### 🌌 One bridge. More ways to explore.
 
-[📦 Releases](https://github.com/imgutss/pol-cloudflare-bridge/releases) · [📋 Changelog](./CHANGELOG.md) · [🔒 Security](./SECURITY.md) · [🤝 Contributing](./CONTRIBUTING.md)
+[📦 Releases](https://github.com/Solina-Projects/pol-cloudflare-bridge/releases) · [📋 Changelog](./CHANGELOG.md) · [🔒 Security](./SECURITY.md) · [🤝 Contributing](./CONTRIBUTING.md)
 
-**Built by [Guts · imgutss](https://github.com/imgutss)**
+**Solina CF-Bridge fork by [Solina-Projects](https://github.com/Solina-Projects) — based on Pol Cloudflare Bridge by [Guts · imgutss](https://github.com/imgutss)**
 
 </div>
