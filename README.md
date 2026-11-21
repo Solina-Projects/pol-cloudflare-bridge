@@ -1,167 +1,186 @@
 <div align="center">
 
-# 🌉 Pol Cloudflare Bridge
-### High-Performance US-Egress TLS-over-WebSocket Tunnel for Meta Muse AI
-**Android Native Proxy Client · Cloudflare Workers Edge · 3D Isometric UI**
+<img src="./docs/assets/pol-community-cover.png" width="100%" alt="Cosmic illustration of Antigravity, Meta, Gemini and Cloudflare" />
+
+# 🌌 Pol Cloudflare Bridge
+
+### Antigravity, offline models and a cloud bridge — together on Android
+
+**One dashboard · Multiple AI paths · Your choice**
 
 <br/>
 
-<a href="https://github.com/imgutss/pol-cloudflare-bridge/releases/download/v1.0.0/Pol-Cloudflare-Bridge.apk">
-  <img src="https://img.shields.io/badge/Download%20APK-v1.0.0%20Release-FF8A2A?style=for-the-badge&logo=android&logoColor=white" alt="Download APK" />
-</a>
-<a href="./README_FA.md">
-  <img src="https://img.shields.io/badge/🇮🇷%20راهنمای%20فارسی-Persian%20Docs-2563EB?style=for-the-badge" alt="Persian Docs" />
-</a>
-<a href="https://github.com/imgutss/pol-cloudflare-bridge/stargazers">
-  <img src="https://img.shields.io/badge/⭐%20Star%20Repo-Support%20Project-F59E0B?style=for-the-badge" alt="Stars" />
-</a>
+<a href="https://github.com/imgutss/pol-cloudflare-bridge/releases/download/v1.0.1/Pol-Cloudflare-Bridge.apk"><img src="https://img.shields.io/badge/⬇_DOWNLOAD_APK-v1.0.1-8B5CF6?style=for-the-badge&logo=android&logoColor=white" alt="Download v1.0.1 APK" /></a>
+<a href="./README_FA.md"><img src="https://img.shields.io/badge/راهنمای_فارسی-Persian_Docs-06B6D4?style=for-the-badge" alt="Persian documentation" /></a>
+<a href="https://github.com/imgutss/pol-cloudflare-bridge/stargazers"><img src="https://img.shields.io/badge/⭐_STAR-SUPPORT_PROJECT-F59E0B?style=for-the-badge" alt="Star this repository" /></a>
 
 <br/><br/>
 
-<img src="https://img.shields.io/badge/Android-8.0%20to%2015-3DDC84?style=flat-square&logo=android&logoColor=white" />
-<img src="https://img.shields.io/badge/Cloudflare-Workers%20Edge-F38020?style=flat-square&logo=cloudflare&logoColor=white" />
-<img src="https://img.shields.io/badge/Tunnel-TLS%20over%20WebSocket-0EA5E9?style=flat-square&logo=websocket&logoColor=white" />
-<img src="https://img.shields.io/badge/Egress-US%20Clean%20IP-8B5CF6?style=flat-square" />
-<img src="https://img.shields.io/badge/Security-Zero%20Knowledge%20E2EE-10B981?style=flat-square" />
-<a href="https://github.com/imgutss/pol-cloudflare-bridge/actions/workflows/ci.yml">
-  <img src="https://github.com/imgutss/pol-cloudflare-bridge/actions/workflows/ci.yml/badge.svg" alt="CI" />
-</a>
-<img src="https://img.shields.io/badge/Dependabot-Active-025E8C?style=flat-square&logo=dependabot&logoColor=white" />
-<img src="https://img.shields.io/badge/Target-Meta%20Muse%20(muse.ai)-0081FB?style=flat-square&logo=meta&logoColor=white" />
-<img src="https://img.shields.io/badge/License-MIT-10B981?style=flat-square" />
+<img src="https://img.shields.io/badge/Android-8%2B-3DDC84?style=flat-square&logo=android&logoColor=white" alt="Android 8+" />
+<img src="https://img.shields.io/badge/Antigravity-Mobile%20Experience-A78BFA?style=flat-square" alt="Antigravity mobile experience" />
+<img src="https://img.shields.io/badge/Offline-ARM64%20%7C%20CPU-22D3EE?style=flat-square" alt="Offline ARM64 CPU" />
+<img src="https://img.shields.io/badge/Bridge-Cloudflare%20Workers-F38020?style=flat-square&logo=cloudflare&logoColor=white" alt="Cloudflare Workers" />
 
-<br/><br/>
+<br/>
 
-<a href="#faq"><img src="https://img.shields.io/badge/❓%20FAQ-1e293b?style=for-the-badge&logoColor=white" /></a>
+[🚀 Quick start](#quick-start) · [🪐 Antigravity](#antigravity) · [🌳 Architecture](#architecture) · [🧠 Offline](#offline) · [📦 Download](#download)
 
 </div>
 
 ---
 
-## 🌟 Overview
+## ✨ Four experiences, one dashboard
 
-**Pol Cloudflare Bridge** is an open-source, privacy-first Android client and Cloudflare Workers edge tunnel engineered to provide clean, unrestricted US-egress access to **[Meta Muse AI](https://muse.ai/)** without relying on battery-draining or blacklisted public VPNs.
+| 🪐 Antigravity | 🌐 Gemini & Muse | 🧠 Offline | ☁️ Cloudflare bridge |
+| :---: | :---: | :---: | :---: |
+| On-device environment & engine | In-app service browser | Text models on CPU | Configurable connection |
+| Choose a model and chat | Gemini keyboard handling | Progressive output & Markdown | No separate server required |
 
-### ✨ Key Features
-
-| Feature | Description |
-| :--- | :--- |
-| 🇺🇸 **Clean US Egress** | Direct exit through Virginia (`us-east-1`) and Oregon POPs, eliminating Meta geo-blocks. |
-| 🔒 **End-to-End Encryption** | Raw `TLS 1.3` stream passthrough via `cloudflare:sockets`. The worker cannot inspect traffic. |
-| ⚡ **App-Level Isolation** | Only the internal secure browser is proxied; your device stays at full network speed. |
-| 🎨 **Tactile 3D UI** | Hardware-accelerated isometric dark theme with zero jitter on mobile touch screens. |
-| 🤖 **Smart Login Assist** | Auto-detects official Meta Muse login forms and securely pre-fills credentials. |
+> **Pol is an independent client, not an official Google or Cloudflare product.** Service access and capabilities depend on your account, model, permissions and service conditions.
 
 ---
 
-## 🏗️ System Architecture
+<a id="antigravity"></a>
+
+## 🪐 Antigravity — the centerpiece
+
+Antigravity is more than a dashboard shortcut. Pol opens an **on-device environment and engine** where you can sign in if needed, select an available model and continue a conversation. The app's browser and offline chat remain separate paths.
+
+| 🎛️ Model control | 🔌 Custom API model |
+| :--- | :--- |
+| Sign in with Google when required | Manually enter **URL, model name and API key** |
+| Choose a model next to the chat box | OpenAI-compatible custom API path |
+| Persian / English interface option | Uses the configured bridge for the custom path |
+| Available tools depend on the account and service | Start a new conversation after changing settings |
+
+**Important:** custom API integration is experimental and configured for one text model; it does not imply support for every provider or model. Tool calls, images and audio are not guaranteed across APIs. Approve file and terminal permissions only when you trust the request. Login and some native paths may use different network behavior.
+
+<details>
+<summary><b>🚀 Open Antigravity in three steps</b></summary>
+
+1. On the dashboard, select **Antigravity** and tap Open.
+2. On first launch, wait for the engine files to initialize and sign in to Google if requested.
+3. Pick a model available to your account next to the message box. For a custom API, enter the URL, model name and key, then start a new conversation.
+
+</details>
+
+---
+
+<a id="architecture"></a>
+
+## 🌳 Branching architecture
+
+Four paths begin at the same dashboard, but they do not all share the same network route:
 
 ```mermaid
-graph TD
-    Client["📱 Android Client (Pol Bridge)"] --> UI["🎨 3D Isometric Dashboard"]
-    Client --> WebView["🌐 Secure Isolated WebView"]
-    
-    WebView -->|"HTTP CONNECT"| Proxy["🔒 Local Proxy Core (127.0.0.1)"]
-    
-    Proxy -->|"WSS Tunnel + Token<br/>End-to-End TLS Passthrough"| Worker["☁️ Cloudflare Edge Worker"]
-    
-    Worker -->|"cloudflare:sockets"| US_East["🇺🇸 US-East Egress (Virginia)"]
-    Worker -->|"cloudflare:sockets"| US_West["🇺🇸 US-West Egress (Oregon)"]
-    
-    US_East -->|"Direct TCP 443"| Target["🤖 Meta Muse AI Platform<br/>https://muse.ai/"]
-    US_West -->|"Direct TCP 443"| Target
+flowchart TD
+    App["📱 POL · Android Dashboard"]
+    App --> AG["🪐 ANTIGRAVITY"]
+    App --> Web["🌐 IN-APP BROWSER"]
+    App --> Off["🧠 OFFLINE CHAT"]
+    App --> Settings["⚙️ MANUAL SETTINGS"]
 
-    classDef c1 fill:#1e293b,stroke:#0ea5e9,stroke-width:2px,color:#f8fafc;
-    classDef c2 fill:#312e81,stroke:#818cf8,stroke-width:2px,color:#f8fafc;
-    classDef c3 fill:#431407,stroke:#f97316,stroke-width:2px,color:#f8fafc;
-    classDef c4 fill:#064e3b,stroke:#10b981,stroke-width:2px,color:#f8fafc;
+    AG --> Runtime["Local engine + interface"]
+    Runtime --> Google["Google service / account"]
+    Runtime --> Adapter["Custom API adapter · experimental"]
+    Settings --> Adapter
+    Web --> Proxy["Local CONNECT proxy"]
+    Adapter --> Proxy
+    Proxy --> WSS["WSS tunnel"]
+    WSS --> Worker["☁️ Cloudflare Worker"]
+    Worker --> Services["Supported HTTPS destinations"]
 
-    class Client,UI,WebView c1;
-    class Proxy,Worker c2;
-    class US_East,US_West c3;
-    class Target c4;
+    Off --> Models["Downloaded GGUF model"]
+    Models --> CPU["ARM64 CPU inference"]
+    CPU --> Stream["Incremental text + Markdown"]
+
+    classDef root fill:#18132f,stroke:#a78bfa,color:#fff,stroke-width:2px;
+    classDef ag fill:#251943,stroke:#c084fc,color:#fff;
+    classDef net fill:#102c38,stroke:#22d3ee,color:#fff;
+    classDef off fill:#142d29,stroke:#34d399,color:#fff;
+    classDef cloud fill:#402515,stroke:#fb923c,color:#fff;
+    class App root;
+    class AG,Runtime,Google,Adapter ag;
+    class Web,Settings,Proxy,WSS,Services net;
+    class Off,Models,CPU,Stream off;
+    class Worker cloud;
+```
+
+<sub>This is a simplified map: not every native path or provider has been verified to use the tunnel. The Google path can vary with configuration. The custom adapter does not fall back to a direct connection when its bridge is unavailable.</sub>
+
+### 🔀 Branch map at a glance
+
+```text
+Pol
+├── 🪐 Antigravity
+│   ├── On-device engine and interface
+│   ├── Google account and available models
+│   └── Experimental custom API → local bridge → Cloudflare → service
+├── 🌐 In-app browser → local bridge → Cloudflare → destination
+├── 🧠 Offline chat → downloaded model → device CPU
+└── ⚙️ Manual settings → URL + model name + API key
 ```
 
 ---
 
-## 🚀 Download & Installation
+<a id="offline"></a>
 
-| Release | Size | Requirements | Download Link |
+## 🧠 Offline AI
+
+After downloading a compatible model, text conversations can run without an internet connection:
+
+| Capability | v1.0.1 experience |
+| :--- | :--- |
+| 📦 **Models** | Separate downloads, horizontal cards and a delete option |
+| 💬 **Live response** | Incremental text instead of waiting for the entire reply |
+| ⚡ **Model retention** | The loaded model stays in memory between messages |
+| 📝 **Markdown** | Formatted text, lists and code |
+| 🖥️ **Execution** | Text inference on the device's ARM64 CPU |
+
+Models are not bundled in the APK. File size, memory use and speed vary by model and device. **Offline image/camera input and GPU acceleration are not included in this release.**
+
+---
+
+## ⌨️ Gemini & online experience
+
+- Open Gemini and Muse in the app's internal browser.
+- Updated Gemini keyboard inset handling, confirmed by a user on a device.
+- Enter custom-service details manually instead of relying on automatic model discovery.
+- Configure an existing Cloudflare Worker bridge from the app.
+
+Access, account features, speed and regional restrictions depend on the service and network. **A specific outbound country or US IP is not guaranteed.**
+
+---
+
+<a id="quick-start"></a>
+
+## 🚀 Quick start
+
+**1. Install** — Download and install the [v1.0.1 APK](https://github.com/imgutss/pol-cloudflare-bridge/releases/download/v1.0.1/Pol-Cloudflare-Bridge.apk).
+
+**2. Choose a path** — Open Antigravity from its card, or go to Offline AI and download a compatible model.
+
+**3. Configure the bridge** — If you use your own Cloudflare Worker, enter its URL and bridge key in Settings. Worker files and setup are in [`worker/`](./worker/).
+
+**4. Configure a custom API** — In Antigravity settings, manually enter your service URL, model name and API key, then start a new conversation.
+
+<a id="download"></a>
+
+## 📦 Download & installation
+
+| Version | Size | Requirements | Get it |
 | :---: | :---: | :---: | :---: |
-| **v1.0.0 (Latest)** | ~1.4 MB | Android 8.0 - 15 | [📥 **Download Pol-Cloudflare-Bridge.apk**](https://github.com/imgutss/pol-cloudflare-bridge/releases/download/v1.0.0/Pol-Cloudflare-Bridge.apk) |
+| **v1.0.1** | ~**168 MB** | Android 8+; offline: ARM64 and sufficient memory | [⬇️ Download APK](https://github.com/imgutss/pol-cloudflare-bridge/releases/download/v1.0.1/Pol-Cloudflare-Bridge.apk) |
 
-> 📦 View all releases and changelogs on the [Releases Page](https://github.com/imgutss/pol-cloudflare-bridge/releases).
-
----
-
-## 🛠️ Deploy Your Own Edge Worker (Optional)
-
-The edge worker source is located in the `worker/` directory and deploys to your personal Cloudflare account in 60 seconds:
-
-```bash
-cd worker
-npm install
-npx wrangler secret put BRIDGE_TOKEN   # Enter your custom secret token
-npx wrangler deploy
-```
-
-Once deployed, enter your worker domain (`https://your-worker.workers.dev`) and token into the app's manual settings.
-
----
-
-<span id="faq"></span>
-
-## ❓ Frequently Asked Questions (FAQ)
+> Back up important data before installing. Android may reject an in-place update if the installed APK uses a different signing key; uninstalling can erase app data.
 
 <details>
-<summary><b>Can Cloudflare Workers see my passwords or chat data?</b></summary>
-<br/>
-<b>No.</b> Traffic uses end-to-end TLS encryption. Encryption keys exist strictly between your Android browser and Meta's servers. The worker only relays raw encrypted bytes.
-</details>
+<summary><b>🔍 File details and source status</b></summary>
 
-<details>
-<summary><b>What caused the previous HTTP 401 error?</b></summary>
-<br/>
-Meta recently restricted their legacy <code>/access</code> endpoint. This updated release points to the public, active landing and login root at <code>https://muse.ai/</code> (HTTP 200 OK).
-</details>
-
-<details>
-<summary><b>Is it free to use?</b></summary>
-<br/>
-<b>Yes, 100% free.</b> Cloudflare Workers provides 100,000 free requests daily on their free tier, which is more than enough for daily personal AI usage.
-</details>
-
----
-
-## 🇮🇷 راهنمای فارسی (Persian Documentation)
-
-برای مطالعه مستندات و راهنمای کامل فارسی، می‌توانید به [**راهنمای فارسی (README_FA.md)**](./README_FA.md) مراجعه کنید یا بخش زیر را باز نمایید:
-
-<details>
-<summary><b>برای باز کردن راهنمای سریع فارسی کلیک کنید</b></summary>
-<br/>
-
-<div dir="rtl">
-
-### 🌟 معرفی به زبان فارسی
-**پل کلودفلر** یک کلاینت سبک و تخصصی اندروید است که به جای کند کردن تمام اینترنت گوشی با VPN، یک تونل مستقیم و امن بر بستر وب‌سوکت و ورکر کلودفلر در آمریکا ایجاد می‌کند تا بدون تحریم و خطای ۴۰۱ به **Meta Muse** متصل شوید.
-
-<div align="right">
-
-| ستون توضیح | ستون ویژگی |
-| :--- | ---: |
-| خروجی مستقیم از دیتاسنترهای آمریکا بدون بلاک آی‌پی | 🇺🇸 **آی‌پی تمیز آمریکا** |
-| انتقال مستقیم پروتکل بدون امکان شنود سرور واسط | 🔒 **رمزنگاری کامل TLS** |
-| فقط مرورگر برنامه پروکسی می‌شود و مصرف باتری ندارد | ⚡ **سبک و بدون افت سرعت** |
-| طراحی سه‌بعدی با انیمیشن روان و تم نئون تاریک | 🎨 **رابط کاربری مدرن** |
-
-</div>
-
-<br/>
-
-* 📥 **دانلود نسخه نهایی:** [Pol-Cloudflare-Bridge.apk](https://github.com/imgutss/pol-cloudflare-bridge/releases/download/v1.0.0/Pol-Cloudflare-Bridge.apk)
-
-</div>
+- SHA-256: `4416f0fae025d471936bef2a639485040f1ce67d6ef5deb4cf294cfce36e86fe`
+- The Gemini keyboard was confirmed by a user on a device; not all devices and WebView versions have been tested.
+- The repository contains earlier sources and [selected patches](./android/patches/v1.0.1/); the **complete source and an independent reproducible APK build are not currently available**.
+- Bundled components and separately downloaded models may have their own license terms.
 
 </details>
 
@@ -169,16 +188,10 @@ Meta recently restricted their legacy <code>/access</code> endpoint. This update
 
 <div align="center">
 
-**Crafted by [Guts (imgutss)](https://github.com/imgutss)** • *Released under the MIT License*
+### 🌌 One bridge. More ways to explore.
 
-<br/>
+[📦 Releases](https://github.com/imgutss/pol-cloudflare-bridge/releases) · [📋 Changelog](./CHANGELOG.md) · [🔒 Security](./SECURITY.md) · [🤝 Contributing](./CONTRIBUTING.md)
 
-[Contributing](./CONTRIBUTING.md) • [Security Policy](./SECURITY.md) • [Changelog](./CHANGELOG.md) • [Code of Conduct](./CODE_OF_CONDUCT.md)
-
-<br/><br/>
-
-<a href="https://github.com/imgutss/pol-cloudflare-bridge">
-  <img src="https://img.shields.io/badge/GitHub-pol--cloudflare--bridge-181717?style=for-the-badge&logo=github&logoColor=white" />
-</a>
+**Built by [Guts · imgutss](https://github.com/imgutss)**
 
 </div>
