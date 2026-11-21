@@ -27,6 +27,42 @@ jobs:
           sudo apt-get update -qq
           sudo apt-get install -y -qq apktool
 
+      - name: Set up NDK 28
+        run: |
+          if [ -d "$ANDROID_HOME/ndk/28.0.13004108" ]; then
+            echo "NDK 28.0.13004108 already installed"
+          else
+            echo "y" | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "ndk;28.0.13004108"
+          fi
+          echo "NDK_HOME=$ANDROID_HOME/ndk/28.0.13004108" >> $GITHUB_ENV
+
+      - name: Build libpol_llm.so (llama.cpp, arm64-v8a)
+        run: |
+          # Pinned llama.cpp commit from upstream pol_llm.cpp (sparse: ~50 MB)
+          git init /tmp/llama.cpp
+          cd /tmp/llama.cpp
+          git remote add origin https://github.com/ggerganov/llama.cpp
+          git sparse-checkout init --cone
+          git fetch --depth 1 --filter=blob:none origin 919794500475862f6768c353255469dc661cb734
+          git sparse-checkout set src include ggml cmake vendor
+          git checkout 919794500475862f6768c353255469dc661cb734
+          cd "$GITHUB_WORKSPACE"
+          cmake -S android/native -B /tmp/llm-build -G "Unix Makefiles" \
+            -DCMAKE_TOOLCHAIN_FILE="$NDK_HOME/build/cmake/android.toolchain.cmake" \
+            -DANDROID_ABI=arm64-v8a \
+            -DANDROID_PLATFORM=android-26 \
+            -DANDROID_STL=c++_static \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DLLAMA_SRC=/tmp/llama.cpp \
+            -DLLAMA_BUILD_EXAMPLES=OFF -DLLAMA_BUILD_TESTS=OFF \
+            -DLLAMA_BUILD_SERVER=OFF -DLLAMA_BUILD_TOOLS=OFF \
+            -DGGML_OPENMP=OFF
+          cmake --build /tmp/llm-build --target pol_llm -j"$(nproc)"
+          "$NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/llvm-strip" /tmp/llm-build/libpol_llm.so
+          mkdir -p android/lib/arm64-v8a
+          cp /tmp/llm-build/libpol_llm.so android/lib/arm64-v8a/libpol_llm.so
+          ls -la android/lib/arm64-v8a/
+
       - name: Build APK with apktool
         run: |
           apktool b android -o app-unsigned.apk
