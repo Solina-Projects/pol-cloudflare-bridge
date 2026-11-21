@@ -32,16 +32,16 @@ jobs:
           apktool b android -o app-unsigned.apk
           ls -la app-unsigned.apk
 
-      - name: Generate debug keystore and sign APK
+      - name: Sign APK with Solina release key
         run: |
-          keytool -genkeypair -keystore debug.keystore -alias solina -storepass android -keypass android -keyalg RSA -keysize 2048 -validity 10000 -dname "CN=Solina Bridge, OU=Solina, O=Solina, C=IR"
-          jarsigner -verbose -sigalg SHA256withRSA -digestalg SHA-256 -keystore debug.keystore -storepass android -keypass android app-unsigned.apk solina
-          cp app-unsigned.apk SolinaBridge-v0.3-multi-ai.apk
-          ls -la SolinaBridge-v0.3-multi-ai.apk
+          echo "${{ secrets.CFBRIDGE_KEYSTORE_BASE64 }}" | base64 -d > solina.keystore
+          jarsigner -verbose -sigalg SHA256withRSA -digestalg SHA-256 -keystore solina.keystore -storepass "${{ secrets.CFBRIDGE_KEYSTORE_PASSWORD }}" -keypass "${{ secrets.CFBRIDGE_KEY_PASSWORD }}" app-unsigned.apk "${{ secrets.CFBRIDGE_KEY_ALIAS }}"
+          cp app-unsigned.apk SolinaCF-Bridge-v1.0.0.apk
+          ls -la SolinaCF-Bridge-v1.0.0.apk
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: SolinaBridge-v0.3-multi-ai
-          path: SolinaBridge-v0.3-multi-ai.apk
+          name: SolinaCF-Bridge-v1.0.0
+          path: SolinaCF-Bridge-v1.0.0.apk
           if-no-files-found: error
