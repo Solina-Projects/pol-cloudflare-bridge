@@ -56,6 +56,11 @@ body{min-height:100vh;color:var(--ice);font:14px/1.7 system-ui,-apple-system,Bli
 .l{display:block;font-size:11.5px;color:var(--mute);margin-bottom:6px}
 .f input{width:100%;height:46px;border:0;border-radius:14px;padding:0 44px 0 14px;font:13.5px system-ui,sans-serif;color:var(--ice);direction:ltr;text-align:left;background:#070b12;box-shadow:inset 0 2px 6px rgba(0,0,0,.6),inset 0 0 0 1px var(--edge);outline:0;transition:box-shadow .25s}
 .f input:focus{box-shadow:inset 0 2px 6px rgba(0,0,0,.6),inset 0 0 0 1px var(--sig),0 0 0 3px rgba(255,138,42,.15)}
+.f textarea{width:100%;min-height:88px;border:0;border-radius:14px;padding:12px 14px;font:13.5px system-ui,sans-serif;color:var(--ice);direction:rtl;text-align:right;background:#070b12;box-shadow:inset 0 2px 6px rgba(0,0,0,.6),inset 0 0 0 1px var(--edge);outline:0;resize:vertical;transition:box-shadow .25s}
+.f textarea:focus{box-shadow:inset 0 2px 6px rgba(0,0,0,.6),inset 0 0 0 1px var(--sig),0 0 0 3px rgba(255,138,42,.15)}
+.f textarea::placeholder{color:#44526a}
+.llm-out{white-space:pre-wrap;word-break:break-word;font:13px/1.9 system-ui,sans-serif;color:var(--ice);min-height:64px;margin:10px 0 0;padding:12px 14px;border-radius:14px;background:#070b12;box-shadow:inset 0 0 0 1px var(--edge)}
+.llm-out:empty::before{content:'پاسخ مدل اینجا می‌آید…';color:var(--mute)}
 .f input::placeholder{color:#44526a}
 .f input[readonly]{color:var(--mute)}
 .f .ic{position:absolute;right:14px;bottom:13px;color:var(--mute);pointer-events:none;transition:.25s}
@@ -183,6 +188,23 @@ body{min-height:100vh;color:var(--ice);font:14px/1.7 system-ui,-apple-system,Bli
   </div>
 </section>
 
+<!-- بخش ۴: مدل آفلاین -->
+<section class="slab s4">
+  <div class="hd"><div class="tile"><svg class="ic"><use href="#i-wave"/></svg></div><h2><span>۴. مدل آفلاین (بدون اینترنت)</span></h2></div>
+  <p class="hint">مدل کوچک Qwen2.5-0.5B روی خود گوشی اجرا می‌شود؛ بعد از دانلود، بدون اینترنت هم جواب می‌دهد. دانلود یک‌بار است (حدود ۴۷۰ مگابایت) و مدل روی حافظهٔ خود گوشی می‌ماند.</p>
+  <div class="st" id="llmStatusDisplay">در حال بررسی وضعیت مدل…</div>
+  <div class="ai-grid">
+    <button class="btn ghost" id="llmDownloadBtn" onclick="llm('download')"><svg class="ic"><use href="#i-cloud"/></svg>دانلود مدل</button>
+    <button class="btn ghost" id="llmUnloadBtn" onclick="llm('unload')"><svg class="ic"><use href="#i-lock"/></svg>خالی‌کردن مدل از حافظه</button>
+  </div>
+  <div class="f"><label class="l" for="llmPrompt">پیام به مدل آفلاین</label><textarea id="llmPrompt" rows="3" placeholder="سؤالت را اینجا بنویس…"></textarea></div>
+  <div class="ai-grid">
+    <button class="btn go" id="llmGenBtn" onclick="llmGen()"><svg class="ic"><use href="#i-pulse"/></svg>پرسیدن از مدل</button>
+    <button class="btn ghost" id="llmCancelBtn" onclick="llm('cancel')"><svg class="ic"><use href="#i-warn"/></svg>توقف</button>
+  </div>
+  <pre class="llm-out" id="llmOut" dir="rtl"></pre>
+</section>
+
 <!-- کادر هشدار نسخه آزمایشی -->
 <div class="slab note">
   <svg class="ic"><use href="#i-warn"/></svg>
@@ -249,6 +271,30 @@ function autoProvision(){
 function openPrivacyGuide(){
   toast('هیچ رمز یا اطلاعات حسابی روی ورکر کلودفلر ذخیره نمی‌شود و تمام ترافیک با رمزنگاری TLS عبور می‌کند.');
 }
+function llm(a,arg){window.location.href='bridge://llm?action='+a+'&arg='+encodeURIComponent(arg||'')}
+function llmGen(){
+  const p=$('llmPrompt').value.trim();
+  if(!p){toast('اول یک پیام بنویس','bad');$('llmPrompt').focus();return}
+  $('llmOut').textContent='';
+  toast('مدل آفلاین در حال فکر کردن…');
+  llm('generate',p);
+}
+function llmMB(n){return (n/1048576).toFixed(0)+' مگابایت'}
+window.__llmStatus=function(s){
+  const el=$('llmStatusDisplay');if(!el)return;
+  if(!s.lib){el.innerHTML='کتابخانهٔ مدل آفلاین در برنامه نیست — این نسخه بدون مدل آفلاین ساخته شده.';return}
+  if(!s.model){el.innerHTML='مدل دانلود نشده — دکمهٔ «دانلود مدل» را بزن ('+llmMB(491400032)+'، یک‌بار).';return}
+  el.innerHTML='مدل آماده است ('+llmMB(s.size)+') — مسیر: <b>'+s.path+'</b>';
+};
+window.__llmProgress=function(pct,done,total){
+  const el=$('llmStatusDisplay');if(!el)return;
+  if(pct>=100){el.textContent='دانلود کامل شد — مدل آماده است.';toast('دانلود مدل کامل شد');return}
+  el.textContent='در حال دانلود مدل… '+pct+'٪ ('+llmMB(done)+' از '+llmMB(total)+')';
+};
+window.__llmStream=function(t){const o=$('llmOut');if(o)o.textContent=t};
+window.__llmDone=function(t){const o=$('llmOut');if(o)o.textContent=t;toast('تمام شد')};
+window.__llmError=function(m){toast(m,'bad')};
+try{llm('status')}catch(e){}
 </script>
 </body>
 </html>

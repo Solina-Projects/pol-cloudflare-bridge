@@ -6107,7 +6107,7 @@
     const-string v1, "bridge://provision"
     invoke-virtual {p1, v1}, Ljava/lang/String;->startsWith(Ljava/lang/String;)Z
     move-result v1
-    if-eqz v1, :cond_end
+    if-eqz v1, :cond_llm_action
 
     const-string v1, "token"
     invoke-virtual {v0, v1}, Landroid/net/Uri;->getQueryParameter(Ljava/lang/String;)Ljava/lang/String;
@@ -6124,6 +6124,23 @@
     iget-object v0, p0, Lapp/solina/cfbridge/MainActivity;->provisionButton:Landroid/widget/Button;
     if-eqz v0, :cond_end
     invoke-virtual {v0}, Landroid/widget/Button;->performClick()Z
+
+    :cond_llm_action
+    const-string v1, "bridge://llm"
+    invoke-virtual {p1, v1}, Ljava/lang/String;->startsWith(Ljava/lang/String;)Z
+    move-result v1
+    if-eqz v1, :cond_end
+
+    const-string v1, "action"
+    invoke-virtual {v0, v1}, Landroid/net/Uri;->getQueryParameter(Ljava/lang/String;)Ljava/lang/String;
+    move-result-object v1
+
+    const-string v2, "arg"
+    invoke-virtual {v0, v2}, Landroid/net/Uri;->getQueryParameter(Ljava/lang/String;)Ljava/lang/String;
+    move-result-object v2
+
+    invoke-static {p0, v1, v2}, Lapp/solina/cfbridge/LlmBridge;->onAction(Lapp/solina/cfbridge/MainActivity;Ljava/lang/String;Ljava/lang/String;)V
+    goto :goto_end
 
     :cond_end
     :goto_end
