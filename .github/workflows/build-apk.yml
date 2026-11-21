@@ -36,7 +36,13 @@ jobs:
         run: |
           echo "${{ secrets.CFBRIDGE_KEYSTORE_BASE64 }}" | base64 -d > solina.keystore
           jarsigner -verbose -sigalg SHA256withRSA -digestalg SHA-256 -keystore solina.keystore -storepass "${{ secrets.CFBRIDGE_KEYSTORE_PASSWORD }}" -keypass "${{ secrets.CFBRIDGE_KEY_PASSWORD }}" app-unsigned.apk "${{ secrets.CFBRIDGE_KEY_ALIAS }}"
-          cp app-unsigned.apk SolinaCF-Bridge-v1.0.0.apk
+
+      - name: Align APK with zipalign
+        run: |
+          ZIPALIGN=$(find "${ANDROID_HOME:-/usr/lib/android-sdk}/build-tools" -name zipalign -type f 2>/dev/null | sort -V | tail -1)
+          if [ -z "$ZIPALIGN" ]; then echo "zipalign not found"; exit 1; fi
+          "$ZIPALIGN" -f -p 4 app-unsigned.apk SolinaCF-Bridge-v1.0.0.apk
+          "$ZIPALIGN" -c -v 4 SolinaCF-Bridge-v1.0.0.apk
           ls -la SolinaCF-Bridge-v1.0.0.apk
 
       - name: Upload APK
