@@ -234,6 +234,9 @@ html[data-font="large"] .hd h2{font-size:16px}
   <button class="tbtn" id="settingsBtn" onclick="showScreen('settings')" aria-label="تنظیمات"><svg class="ic"><use href="#i-sliders"/></svg></button>
 </header>
 <!-- SOLINA:END topbar -->
+<!-- SOLINA:BEGIN dbg-bar -->
+<div id="solinaDbg" style="font-size:11px;opacity:.75;padding:2px 6px">Solina CF-Bridge · wave2-dbg1 · در حال بارگذاری…</div>
+<!-- SOLINA:END dbg-bar -->
 
 
 <!-- هیرو سه‌بعدی متحرک (کاملاً ثابت، بدون کج‌شدن با لمس) -->
@@ -556,6 +559,11 @@ try{llm('status')}catch(e){}
 
 <!-- SOLINA:BEGIN router -->
 <script>
+/* SOLINA:BEGIN dbg */
+function solinaDbg(t){try{var d=document.getElementById('solinaDbg');if(d)d.textContent='Solina CF-Bridge · wave2-dbg1 · '+t;}catch(e){}}
+window.onerror=function(m,src,ln,col){solinaDbg('خطا: '+m+' @'+ln+':'+col);return false;};
+/* SOLINA:END dbg */
+
 /* SOLINA:BEGIN router-js */
 var SOLINA_SCREENS=['welcome','permissions','bridge','ai','model','browse','settings'];
 var solinaPrevScreen='ai';
@@ -685,9 +693,10 @@ function solinaToggleFs(){
 
 /* SOLINA:BEGIN init */
 (function(){
-  solinaInitPrefs();
-  solinaHookAi();
-  solinaRestoreAi();
+  solinaDbg('شروع راه‌اندازی…');
+  try{solinaInitPrefs();solinaDbg('تنظیمات ok');}catch(e){solinaDbg('خطا در تنظیمات: '+e.message);}
+  try{solinaHookAi();solinaDbg('دکمه‌ها ok');}catch(e){solinaDbg('خطا در دکمه‌ها: '+e.message);}
+  try{solinaRestoreAi();solinaDbg('بازیابی ok');}catch(e){solinaDbg('خطا در بازیابی: '+e.message);}
   var onboarded=false;
   try{onboarded=localStorage.getItem('solina_onboarded')==='1';}catch(e){}
   var start='ai';
@@ -697,6 +706,7 @@ function solinaToggleFs(){
     if(SOLINA_SCREENS.indexOf(h)>=0)start=h;
   }
   showScreen(start);
+  solinaDbg('صفحه: '+start+' ✓');
 })();
 /* SOLINA:END init */
 
@@ -904,9 +914,9 @@ function solinaInitLlmHistory(){
 
 /* SOLINA:BEGIN wave2-init */
 (function(){
-  solinaInitLogin();
-  solinaInitBrowse();
-  solinaInitLlmHistory();
+  try{solinaInitLogin();}catch(e){solinaDbg('خطا در ورود: '+e.message);}
+  try{solinaInitBrowse();}catch(e){solinaDbg('خطا در مرور: '+e.message);}
+  try{solinaInitLlmHistory();}catch(e){solinaDbg('خطا در تاریخچه: '+e.message);}
 })();
 /* SOLINA:END wave2-init */
 </script>
