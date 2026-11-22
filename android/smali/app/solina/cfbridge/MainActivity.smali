@@ -6131,6 +6131,9 @@
     move-result v1
     if-eqz v1, :cond_end
 
+    invoke-static {p1}, Landroid/net/Uri;->parse(Ljava/lang/String;)Landroid/net/Uri;
+    move-result-object v0
+
     const-string v1, "action"
     invoke-virtual {v0, v1}, Landroid/net/Uri;->getQueryParameter(Ljava/lang/String;)Ljava/lang/String;
     move-result-object v1
