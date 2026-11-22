@@ -6126,13 +6126,13 @@
     invoke-virtual {v0}, Landroid/widget/Button;->performClick()Z
 
     :cond_llm_action
+    invoke-static {p1}, Landroid/net/Uri;->parse(Ljava/lang/String;)Landroid/net/Uri;
+    move-result-object v0
+
     const-string v1, "bridge://llm"
     invoke-virtual {p1, v1}, Ljava/lang/String;->startsWith(Ljava/lang/String;)Z
     move-result v1
     if-eqz v1, :cond_fs_action
-
-    invoke-static {p1}, Landroid/net/Uri;->parse(Ljava/lang/String;)Landroid/net/Uri;
-    move-result-object v0
 
     const-string v1, "action"
     invoke-virtual {v0, v1}, Landroid/net/Uri;->getQueryParameter(Ljava/lang/String;)Ljava/lang/String;
