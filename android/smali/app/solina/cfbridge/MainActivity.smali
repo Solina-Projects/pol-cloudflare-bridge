@@ -6129,7 +6129,7 @@
     const-string v1, "bridge://llm"
     invoke-virtual {p1, v1}, Ljava/lang/String;->startsWith(Ljava/lang/String;)Z
     move-result v1
-    if-eqz v1, :cond_end
+    if-eqz v1, :cond_fs_action
 
     invoke-static {p1}, Landroid/net/Uri;->parse(Ljava/lang/String;)Landroid/net/Uri;
     move-result-object v0
@@ -6143,6 +6143,75 @@
     move-result-object v2
 
     invoke-static {p0, v1, v2}, Lapp/solina/cfbridge/LlmBridge;->onAction(Lapp/solina/cfbridge/MainActivity;Ljava/lang/String;Ljava/lang/String;)V
+    goto :goto_end
+
+    :cond_fs_action
+    const-string v1, "bridge://fullscreen"
+    invoke-virtual {p1, v1}, Ljava/lang/String;->startsWith(Ljava/lang/String;)Z
+    move-result v1
+    if-eqz v1, :cond_home_action
+
+    const-string v1, "on"
+    invoke-virtual {v0, v1}, Landroid/net/Uri;->getQueryParameter(Ljava/lang/String;)Ljava/lang/String;
+    move-result-object v1
+
+    const-string v2, "1"
+    invoke-virtual {v2, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+    move-result v1
+    if-eqz v1, :cond_fs_off
+
+    invoke-virtual {p0}, Landroid/app/Activity;->getWindow()Landroid/view/Window;
+    move-result-object v1
+    const/16 v2, 0x400
+    invoke-virtual {v1, v2}, Landroid/view/Window;->addFlags(I)V
+    invoke-virtual {p0}, Landroid/app/Activity;->getWindow()Landroid/view/Window;
+    move-result-object v1
+    invoke-virtual {v1}, Landroid/view/Window;->getDecorView()Landroid/view/View;
+    move-result-object v1
+    const/16 v2, 0x1706
+    invoke-virtual {v1, v2}, Landroid/view/View;->setSystemUiVisibility(I)V
+    goto :goto_end
+
+    :cond_fs_off
+    invoke-virtual {p0}, Landroid/app/Activity;->getWindow()Landroid/view/Window;
+    move-result-object v1
+    const/16 v2, 0x400
+    invoke-virtual {v1, v2}, Landroid/view/Window;->clearFlags(I)V
+    invoke-virtual {p0}, Landroid/app/Activity;->getWindow()Landroid/view/Window;
+    move-result-object v1
+    invoke-virtual {v1}, Landroid/view/Window;->getDecorView()Landroid/view/View;
+    move-result-object v1
+    const/4 v2, 0x0
+    invoke-virtual {v1, v2}, Landroid/view/View;->setSystemUiVisibility(I)V
+    goto :goto_end
+
+    :cond_home_action
+    const-string v1, "bridge://home"
+    invoke-virtual {p1, v1}, Ljava/lang/String;->startsWith(Ljava/lang/String;)Z
+    move-result v1
+    if-eqz v1, :cond_end
+
+    const-string v1, "screen"
+    invoke-virtual {v0, v1}, Landroid/net/Uri;->getQueryParameter(Ljava/lang/String;)Ljava/lang/String;
+    move-result-object v1
+
+    const-string v2, "ai"
+    invoke-virtual {v2, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+    move-result v1
+    if-eqz v1, :cond_home_plain
+
+    const-string v1, "file:///android_asset/ui/index.html#screen-ai"
+    goto :cond_home_load
+
+    :cond_home_plain
+    const-string v1, "file:///android_asset/ui/index.html"
+
+    :cond_home_load
+    invoke-direct {p0}, Lapp/solina/cfbridge/MainActivity;->leaveBrowser()V
+
+    iget-object v2, p0, Lapp/solina/cfbridge/MainActivity;->homeWeb:Landroid/webkit/WebView;
+    if-eqz v2, :goto_end
+    invoke-virtual {v2, v1}, Landroid/webkit/WebView;->loadUrl(Ljava/lang/String;)V
     goto :goto_end
 
     :cond_end

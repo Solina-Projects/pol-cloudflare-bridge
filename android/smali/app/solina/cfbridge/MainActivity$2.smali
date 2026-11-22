@@ -33,7 +33,9 @@
 
 # virtual methods
 .method public onPageFinished(Landroid/webkit/WebView;Ljava/lang/String;)V
-    .locals 0
+    .locals 1
+
+    move-object v0, p1
 
     .line 434
     iget-object p1, p0, Lapp/solina/cfbridge/MainActivity$2;->this$0:Lapp/solina/cfbridge/MainActivity;
@@ -49,6 +51,14 @@
     iget-object p1, p0, Lapp/solina/cfbridge/MainActivity$2;->this$0:Lapp/solina/cfbridge/MainActivity;
 
     invoke-static {p1}, Lapp/solina/cfbridge/MainActivity;->-$$Nest$mscheduleAssistant(Lapp/solina/cfbridge/MainActivity;)V
+
+    invoke-static {}, Lapp/solina/cfbridge/QuickSettings;->javascript()Ljava/lang/String;
+
+    move-result-object p1
+
+    const/4 p2, 0x0
+
+    invoke-virtual {v0, p1, p2}, Landroid/webkit/WebView;->evaluateJavascript(Ljava/lang/String;Landroid/webkit/ValueCallback;)V
 
     return-void
 .end method
@@ -200,8 +210,42 @@
 .end method
 
 .method public shouldOverrideUrlLoading(Landroid/webkit/WebView;Landroid/webkit/WebResourceRequest;)Z
-    .locals 1
+    .locals 2
 
+    if-nez p2, :cond_0
+
+    const/4 v0, 0x0
+
+    return v0
+
+    :cond_0
+    invoke-interface {p2}, Landroid/webkit/WebResourceRequest;->getUrl()Landroid/net/Uri;
+
+    move-result-object v0
+
+    if-eqz v0, :cond_1
+
+    invoke-virtual {v0}, Landroid/net/Uri;->toString()Ljava/lang/String;
+
+    move-result-object v0
+
+    const-string v1, "bridge://"
+
+    invoke-virtual {v0, v1}, Ljava/lang/String;->startsWith(Ljava/lang/String;)Z
+
+    move-result v1
+
+    if-eqz v1, :cond_1
+
+    iget-object v1, p0, Lapp/solina/cfbridge/MainActivity$2;->this$0:Lapp/solina/cfbridge/MainActivity;
+
+    invoke-static {v1, v0}, Lapp/solina/cfbridge/MainActivity;->handleBridgeAction(Lapp/solina/cfbridge/MainActivity;Ljava/lang/String;)V
+
+    const/4 v0, 0x1
+
+    return v0
+
+    :cond_1
     const/4 v0, 0x0
 
     return v0

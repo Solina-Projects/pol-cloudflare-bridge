@@ -4,6 +4,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <meta name="theme-color" content="#06080d">
+<!-- SOLINA:BEGIN personalization-early -->
+<script>
+try{
+  var _t=localStorage.getItem('solina_theme');if(_t)document.documentElement.setAttribute('data-theme',_t);
+  var _a=localStorage.getItem('solina_accent');if(_a)document.documentElement.setAttribute('data-accent',_a);
+  var _f=localStorage.getItem('solina_font');if(_f)document.documentElement.setAttribute('data-font',_f);
+}catch(e){}
+</script>
+<!-- SOLINA:END personalization-early -->
 <title>Solina CF-Bridge</title>
 <style>
 :root{--ink:#06080d;--s1:#131b2a;--s2:#0a0f18;--edge:#1d2738;--edge2:#2d3b54;--ice:#eaf0f8;--mute:#7c8ba1;--sig:#ff8a2a;--sig2:#b85a0c;--ok:#5be3b0;--bad:#ff5568}
@@ -108,9 +117,78 @@ body{min-height:100vh;color:var(--ice);font:14px/1.7 system-ui,-apple-system,Bli
 #toast.show{opacity:1;transform:translate(-50%,0)}
 #toast.ok{box-shadow:inset 0 0 0 1px var(--ok),0 20px 40px -12px #000}
 #toast.bad{box-shadow:inset 0 0 0 1px var(--bad),0 20px 40px -12px #000}
+
+/* SOLINA:BEGIN router-css */
+.screen{display:none;flex-direction:column;gap:16px}
+.screen.active{display:flex}
+#hero{display:none}
+body[data-screen="welcome"] #hero,body[data-screen="bridge"] #hero{display:flex}
+.snav{display:flex;gap:10px}
+.snav .btn{flex:1}
+.step{text-align:center;font-size:11px;color:var(--mute)}
+/* SOLINA:END router-css */
+
+/* SOLINA:BEGIN topbar */
+.topbar{position:sticky;top:8px;z-index:60;display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:16px;background:linear-gradient(180deg,var(--s1),var(--s2));box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 0 0 1px var(--edge),0 12px 20px -12px #000}
+.tname{flex:1;font-weight:800;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tbtn{flex:none;width:38px;height:38px;border:0;border-radius:12px;background:#0e1522;color:var(--ice);display:grid;place-items:center;cursor:pointer;box-shadow:inset 0 0 0 1px var(--edge2)}
+.tbtn .ic{filter:none}
+.tbtn.on{color:var(--sig);box-shadow:inset 0 0 0 1px var(--sig)}
+/* SOLINA:END topbar */
+
+/* SOLINA:BEGIN welcome */
+.feat{display:flex;flex-direction:column;gap:12px}
+.feat>div{display:flex;gap:10px;align-items:flex-start}
+.feat .ic{color:var(--sig);margin-top:3px;filter:none}
+.feat b{display:block;font-size:13px}
+.feat small{display:block;font-size:11.5px;color:var(--mute);line-height:1.7}
+/* SOLINA:END welcome */
+
+/* SOLINA:BEGIN settings-css */
+.set-h{font-size:13px;font-weight:700;margin-top:4px}
+.setrow{display:flex;align-items:center;gap:12px;justify-content:space-between;padding:12px 0;border-top:1px solid var(--edge)}
+.setrow b{display:block;font-size:13px}
+.setrow small{display:block;font-size:11px;color:var(--mute);line-height:1.7}
+.btn.sm{width:auto;height:38px;padding:0 14px;font-size:12.5px;flex:none}
+.seg{display:flex;gap:6px;flex:none;flex-wrap:wrap}
+.seg button{border:0;border-radius:11px;padding:8px 12px;font-family:inherit;font-size:12px;font-weight:700;color:var(--mute);background:#0e1522;box-shadow:inset 0 0 0 1px var(--edge2);cursor:pointer}
+.seg button.on{color:#1b0e02;background:var(--sig)}
+/* SOLINA:END settings-css */
+
+/* SOLINA:BEGIN personalization-theme-light */
+html[data-theme="light"]{--ink:#eef2f7;--s1:#ffffff;--s2:#f2f5f9;--edge:#d7dee8;--edge2:#b9c4d4;--ice:#16233a;--mute:#5c6b82}
+html[data-theme="light"] body{background:#eef2f7}
+html[data-theme="light"] .f input,html[data-theme="light"] .f textarea,html[data-theme="light"] .llm-out,html[data-theme="light"] .st{background:#eef2f7}
+html[data-theme="light"] .ghost,html[data-theme="light"] .tbtn,html[data-theme="light"] .seg button{background:#e8edf3}
+html[data-theme="light"] .chip{background:#e8edf3}
+html[data-theme="light"] .tile{background:linear-gradient(145deg,#e8edf3,#dfe6ee)}
+html[data-theme="light"] .note{background:rgba(255,138,42,.08)}
+html[data-theme="light"] .note p{color:#8a5a22}
+html[data-theme="light"] #toast{background:#16233a;color:#eef2f7}
+/* SOLINA:END personalization-theme-light */
+
+/* SOLINA:BEGIN personalization-accent */
+html[data-accent="teal"]{--sig:#2dd4bf;--sig2:#0d9488}
+html[data-accent="violet"]{--sig:#a78bfa;--sig2:#7c3aed}
+html[data-accent="green"]{--sig:#4ade80;--sig2:#16a34a}
+html[data-accent="teal"] .go{background:linear-gradient(180deg,#5eead4,#2dd4bf)}
+html[data-accent="violet"] .go{background:linear-gradient(180deg,#c4b5fd,#a78bfa)}
+html[data-accent="green"] .go{background:linear-gradient(180deg,#86efac,#4ade80)}
+/* SOLINA:END personalization-accent */
+
+/* SOLINA:BEGIN personalization-font */
+html[data-font="large"] body{font-size:16px}
+html[data-font="large"] .btn{font-size:15.5px}
+html[data-font="large"] .hd h2{font-size:16px}
+/* SOLINA:END personalization-font */
+
+/* SOLINA:BEGIN ai-remember-css */
+.lastai{color:var(--sig)}
+.ai-grid .btn.last-ai{box-shadow:inset 0 0 0 1.5px var(--sig)}
+/* SOLINA:END ai-remember-css */
 </style>
 </head>
-<body>
+<body data-screen="welcome">
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
 <symbol id="i-key" viewBox="0 0 24 24"><circle cx="8" cy="15" r="4"/><path d="M11 12l8-8M16 7l3 3M14 9l2 2"/></symbol>
 <symbol id="i-cloud" viewBox="0 0 24 24"><path d="M7 18a4 4 0 010-8 5.5 5.5 0 0110.6 1.2A3.4 3.4 0 0117 18z"/><path d="M12 11l-2 3h4l-2 3"/></symbol>
@@ -128,6 +206,15 @@ body{min-height:100vh;color:var(--ice);font:14px/1.7 system-ui,-apple-system,Bli
 </defs></svg>
 
 <main class="app">
+<!-- SOLINA:BEGIN topbar -->
+<header class="topbar">
+  <button class="tbtn" id="homeBtn" onclick="solinaHome()" aria-label="خانه"><svg class="ic"><use href="#i-cloud"/></svg></button>
+  <span class="tname">Solina CF-Bridge</span>
+  <button class="tbtn" id="fsBtn" onclick="solinaToggleFs()" aria-label="تمام‌صفحه" aria-pressed="false"><svg class="ic"><use href="#i-launch"/></svg></button>
+  <button class="tbtn" id="settingsBtn" onclick="showScreen('settings')" aria-label="تنظیمات"><svg class="ic"><use href="#i-sliders"/></svg></button>
+</header>
+<!-- SOLINA:END topbar -->
+
 
 <!-- هیرو سه‌بعدی متحرک (کاملاً ثابت، بدون کج‌شدن با لمس) -->
 <header class="hero" id="hero">
@@ -142,6 +229,42 @@ body{min-height:100vh;color:var(--ice);font:14px/1.7 system-ui,-apple-system,Bli
   <div class="chip"><span class="dot"></span><span id="bridgeBadge">پل فعال · US Oregon</span></div>
 </header>
 
+
+<!-- SOLINA:BEGIN screen-welcome -->
+<div class="screen" id="screen-welcome">
+  <section class="slab">
+    <div class="hd"><div class="tile"><svg class="ic"><use href="#i-cloud"/></svg></div><h2>به Solina CF-Bridge خوش آمدی</h2></div>
+    <p class="hint">با این برنامه، سایت‌های هوش مصنوعی از یک پل آمریکا باز می‌شوند؛ بدون VPN عمومی. یک مدل کوچک هم روی خود گوشی اجرا می‌شود و بدون اینترنت جواب می‌دهد.</p>
+    <div class="feat">
+      <div><svg class="ic"><use href="#i-check"/></svg><span><b>داشبورد چند هوش مصنوعی</b><small>Muse، Gemini، Grok، ChatGPT، Claude، DeepSeek و Perplexity</small></span></div>
+      <div><svg class="ic"><use href="#i-check"/></svg><span><b>ورکر اختصاصی خودت</b><small>روی حساب رایگان کلودفلر خودت ساخته می‌شود</small></span></div>
+      <div><svg class="ic"><use href="#i-check"/></svg><span><b>مدل آفلاین روی گوشی</b><small>Qwen2.5-0.5B؛ بعد از یک‌بار دانلود، بدون اینترنت کار می‌کند</small></span></div>
+      <div><svg class="ic"><use href="#i-check"/></svg><span><b>اصلاح نمایش Gemini</b><small>حاشیه‌ها و صفحه‌کلید در مرورگر داخلی درست نمایش داده می‌شوند</small></span></div>
+    </div>
+    <div class="st">نسخه <b>v1.0.0</b> · اندروید ۸ به بالا · بستهٔ <b dir="ltr">app.solina.cfbridge</b><br>توسعه‌دهنده: <b>Solina</b></div>
+    <div class="snav"><button class="btn go" onclick="solinaStart()">شروع</button><button class="btn ghost" onclick="solinaSkip()">رد کردن</button></div>
+    <p class="step">مرحلهٔ ۱ از ۵</p>
+  </section>
+</div>
+<!-- SOLINA:END screen-welcome -->
+
+<!-- SOLINA:BEGIN screen-permissions -->
+<div class="screen" id="screen-permissions">
+  <section class="slab">
+    <div class="hd"><div class="tile"><svg class="ic"><use href="#i-shield"/></svg></div><h2>دسترسی‌ها</h2></div>
+    <div class="feat">
+      <div><svg class="ic"><use href="#i-check"/></svg><span><b>اجازهٔ VPN</b><small>وقتی پل را فعال می‌کنی، اندروید یک پنجرهٔ «اجازهٔ VPN» نشان می‌دهد. این برنامه فقط یک پروکسی محلی روی خود گوشی می‌سازد؛ ترافیک بقیهٔ برنامه‌ها از آن عبور نمی‌کند.</small></span></div>
+      <div><svg class="ic"><use href="#i-check"/></svg><span><b>فضای ذخیره‌سازی</b><small>مدل آفلاین حدود ۵۰۰ مگابایت فضای خالی لازم دارد و فقط یک‌بار دانلود می‌شود.</small></span></div>
+    </div>
+    <p class="hint">هیچ دسترسی دیگری لازم نیست؛ مخاطبین، پیامک و فایل‌هایت خوانده نمی‌شوند.</p>
+    <div class="snav"><button class="btn ghost" onclick="showScreen('welcome')">بازگشت</button><button class="btn go" onclick="showScreen('bridge')">ادامه</button></div>
+    <p class="step">مرحلهٔ ۲ از ۵</p>
+  </section>
+</div>
+<!-- SOLINA:END screen-permissions -->
+
+<!-- SOLINA:BEGIN screen-bridge -->
+<div class="screen" id="screen-bridge">
 <!-- بخش ۱: اتصال به کلودفلر خودت -->
 <section class="slab s1">
   <div class="hd"><div class="tile"><svg class="ic"><use href="#i-key"/></svg></div><h2>۱. اتصال به کلودفلر خودت</h2></div>
@@ -150,6 +273,16 @@ body{min-height:100vh;color:var(--ice);font:14px/1.7 system-ui,-apple-system,Bli
   <button class="btn go" onclick="autoProvision()"><svg class="ic"><use href="#i-cloud"/></svg>ساخت خودکار روی حساب من</button>
   <p class="hint">این دکمه یک Worker جدید و در صورت نبودن، workers.dev حساب را می‌سازد. Worker فعلی عمداً جایگزین نمی‌شود؛ مصرف و هزینه تابع حساب خودت است.</p>
 </section>
+
+  <!-- SOLINA:BEGIN nav-bridge -->
+  <div class="snav"><button class="btn ghost" onclick="showScreen('permissions')">بازگشت</button><button class="btn go" onclick="showScreen('ai')">ادامه: انتخاب هوش مصنوعی</button></div>
+  <p class="step">مرحلهٔ ۳ از ۵</p>
+  <!-- SOLINA:END nav-bridge -->
+</div>
+<!-- SOLINA:END screen-bridge -->
+
+<!-- SOLINA:BEGIN screen-ai -->
+<div class="screen" id="screen-ai">
 
 <!-- بخش ۲: ورود یا ثبت‌نام Muse -->
 <section class="slab s2">
@@ -188,6 +321,19 @@ body{min-height:100vh;color:var(--ice);font:14px/1.7 system-ui,-apple-system,Bli
   </div>
 </section>
 
+  <!-- SOLINA:BEGIN ai-remember-chip -->
+  <p class="hint lastai" id="lastAiChip" style="display:none"></p>
+  <!-- SOLINA:END ai-remember-chip -->
+  <!-- SOLINA:BEGIN nav-ai -->
+  <div class="snav"><button class="btn ghost" onclick="showScreen('bridge')">بازگشت</button><button class="btn go" onclick="showScreen('model')">ادامه: مدل آفلاین</button></div>
+  <p class="step">مرحلهٔ ۴ از ۵</p>
+  <!-- SOLINA:END nav-ai -->
+</div>
+<!-- SOLINA:END screen-ai -->
+
+<!-- SOLINA:BEGIN screen-model -->
+<div class="screen" id="screen-model">
+
 <!-- بخش ۴: مدل آفلاین -->
 <section class="slab s4">
   <div class="hd"><div class="tile"><svg class="ic"><use href="#i-wave"/></svg></div><h2><span>۴. مدل آفلاین (بدون اینترنت)</span></h2></div>
@@ -204,6 +350,36 @@ body{min-height:100vh;color:var(--ice);font:14px/1.7 system-ui,-apple-system,Bli
   </div>
   <pre class="llm-out" id="llmOut" dir="rtl"></pre>
 </section>
+
+  <!-- SOLINA:BEGIN nav-model -->
+  <div class="snav"><button class="btn ghost" onclick="showScreen('ai')">بازگشت</button><button class="btn go" onclick="showScreen('settings')">تنظیمات</button></div>
+  <p class="step">مرحلهٔ ۵ از ۵</p>
+  <!-- SOLINA:END nav-model -->
+</div>
+<!-- SOLINA:END screen-model -->
+
+<!-- SOLINA:BEGIN screen-settings -->
+<div class="screen" id="screen-settings">
+  <section class="slab">
+    <div class="hd"><div class="tile"><svg class="ic"><use href="#i-sliders"/></svg></div><h2>تنظیمات</h2></div>
+
+    <h3 class="set-h">تنظیمات بخش‌ها</h3>
+    <div class="setrow"><div><b>پل (Cloudflare)</b><small id="setBridgeInfo">مبدأ فعلی: —</small></div><button class="btn ghost sm" onclick="solinaResetBridge()">بازنشانی به پیش‌فرض</button></div>
+    <div class="setrow"><div><b>هوش مصنوعی</b><small>ایمیل و آخرین هوش انتخاب‌شدهٔ ذخیره‌شده</small></div><button class="btn ghost sm" onclick="solinaClearAi()">پاک‌کردن</button></div>
+    <div class="setrow"><div><b>مدل آفلاین</b><small id="setModelInfo">وضعیت مدل: —</small></div><button class="btn ghost sm" onclick="solinaClearModel()">حذف مدل دانلودشده</button></div>
+    <div class="setrow"><div><b>راه‌اندازی دوباره</b><small>نمایش دوبارهٔ صفحهٔ خوشامدگویی و راهنما</small></div><button class="btn ghost sm" onclick="solinaReplayOnboarding()">نمایش راهنما</button></div>
+
+    <h3 class="set-h">شخصی‌سازی</h3>
+    <div class="setrow"><div><b>پوسته</b><small>روشن یا تیره</small></div><div class="seg" id="themeSeg"><button data-v="dark" onclick="solinaSetTheme('dark')">تیره</button><button data-v="light" onclick="solinaSetTheme('light')">روشن</button></div></div>
+    <div class="setrow"><div><b>رنگ اصلی</b><small>رنگ دکمه‌ها و تأکید</small></div><div class="seg" id="accentSeg"><button data-v="orange" onclick="solinaSetAccent('orange')">نارنجی</button><button data-v="teal" onclick="solinaSetAccent('teal')">فیروزه‌ای</button><button data-v="violet" onclick="solinaSetAccent('violet')">بنفش</button><button data-v="green" onclick="solinaSetAccent('green')">سبز</button></div></div>
+    <div class="setrow"><div><b>اندازهٔ نوشته</b><small>معمولی یا بزرگ</small></div><div class="seg" id="fontSeg"><button data-v="normal" onclick="solinaSetFont('normal')">معمولی</button><button data-v="large" onclick="solinaSetFont('large')">بزرگ</button></div></div>
+
+    <h3 class="set-h">دربارهٔ برنامه</h3>
+    <div class="st">نسخه <b>v1.0.0</b> · اندروید ۸ به بالا<br>بستهٔ <b dir="ltr">app.solina.cfbridge</b><br>توسعه‌دهنده: <b>Solina</b></div>
+    <div class="snav"><button class="btn ghost" onclick="solinaBack()">بازگشت</button></div>
+  </section>
+</div>
+<!-- SOLINA:END screen-settings -->
 
 <!-- کادر هشدار نسخه آزمایشی -->
 <div class="slab note">
@@ -296,5 +472,153 @@ window.__llmDone=function(t){const o=$('llmOut');if(o)o.textContent=t;toast('ت�
 window.__llmError=function(m){toast(m,'bad')};
 try{llm('status')}catch(e){}
 </script>
+
+<!-- SOLINA:BEGIN router -->
+<script>
+/* SOLINA:BEGIN router-js */
+var SOLINA_SCREENS=['welcome','permissions','bridge','ai','model','settings'];
+var solinaPrevScreen='ai';
+function showScreen(name){
+  if(SOLINA_SCREENS.indexOf(name)<0)name='ai';
+  if(name==='settings')solinaPrevScreen=document.body.getAttribute('data-screen')||'ai';
+  var screens=document.querySelectorAll('.screen');
+  for(var i=0;i<screens.length;i++)screens[i].classList.toggle('active',screens[i].id==='screen-'+name);
+  document.body.setAttribute('data-screen',name);
+  try{history.replaceState(null,'','#screen-'+name);}catch(e){}
+  try{window.scrollTo(0,0);}catch(e){}
+  if(name==='settings')solinaRefreshSettings();
+}
+function solinaBack(){showScreen(solinaPrevScreen||'ai');}
+function solinaHome(){
+  var onboarded=false;
+  try{onboarded=localStorage.getItem('solina_onboarded')==='1';}catch(e){}
+  showScreen(onboarded?'ai':'welcome');
+}
+function solinaStart(){
+  try{localStorage.setItem('solina_onboarded','1');}catch(e){}
+  showScreen('permissions');
+}
+function solinaSkip(){
+  try{localStorage.setItem('solina_onboarded','1');}catch(e){}
+  showScreen('ai');
+}
+/* SOLINA:END router-js */
+
+/* SOLINA:BEGIN ai-remember-js */
+function solinaSaveEmail(){try{var v=$('emailInput').value.trim();if(v)localStorage.setItem('solina_email',v);}catch(e){}}
+function solinaSaveAI(name){try{if(name)localStorage.setItem('solina_last_ai',name);}catch(e){}}
+function solinaRestoreAi(){
+  var email=null,last=null;
+  try{email=localStorage.getItem('solina_email');last=localStorage.getItem('solina_last_ai');}catch(e){}
+  if(email&&$('emailInput')&&!$('emailInput').value)$('emailInput').value=email;
+  if(last){
+    var chip=$('lastAiChip');
+    if(chip){chip.style.display='block';chip.textContent='آخرین هوش استفاده‌شده: '+last;}
+    var btns=document.querySelectorAll('#screen-ai .s3 .ai-grid .btn');
+    for(var i=0;i<btns.length;i++){
+      if(btns[i].textContent.trim()===last)btns[i].classList.add('last-ai');
+    }
+  }
+}
+function solinaHookAi(){
+  try{
+    var em=$('emailInput');if(em)em.addEventListener('change',solinaSaveEmail);
+    var lb=$('btnLaunch');if(lb)lb.addEventListener('click',function(){solinaSaveAI('Muse');solinaSaveEmail();});
+    var btns=document.querySelectorAll('#screen-ai .s3 .ai-grid .btn');
+    for(var i=0;i<btns.length;i++){
+      (function(b){b.addEventListener('click',function(){solinaSaveAI(b.textContent.trim());solinaSaveEmail();});})(btns[i]);
+    }
+  }catch(e){}
+}
+/* SOLINA:END ai-remember-js */
+
+/* SOLINA:BEGIN settings-js */
+function solinaRefreshSettings(){
+  try{
+    var o=$('workerOriginInput');
+    var bi=$('setBridgeInfo');
+    if(bi)bi.textContent='مبدأ فعلی: '+(o?o.value.trim():'—');
+    var mi=$('setModelInfo');
+    if(mi){var s=$('llmStatusDisplay');mi.textContent='وضعیت مدل: '+(s?s.textContent.trim():'—');}
+  }catch(e){}
+}
+function solinaResetBridge(){
+  try{
+    if($('workerOriginInput'))$('workerOriginInput').value='https://bridge.nguts.my.id';
+    if($('bridgeTokenInput'))$('bridgeTokenInput').value='bridge_sec_7c6ee6655b535a9851959c875f7b2195';
+    toast('پل به ورکر پیش‌فرض برگشت');
+    solinaRefreshSettings();
+  }catch(e){}
+}
+function solinaClearAi(){
+  try{
+    localStorage.removeItem('solina_email');localStorage.removeItem('solina_last_ai');
+    if($('emailInput'))$('emailInput').value='';
+    var chip=$('lastAiChip');if(chip)chip.style.display='none';
+    var btns=document.querySelectorAll('#screen-ai .s3 .ai-grid .btn');
+    for(var i=0;i<btns.length;i++)btns[i].classList.remove('last-ai');
+    toast('ایمیل و هوش ذخیره‌شده پاک شد');
+  }catch(e){}
+}
+function solinaClearModel(){
+  toast('در حال حذف مدل دانلودشده…');
+  try{llm('clear');}catch(e){}
+}
+function solinaReplayOnboarding(){
+  try{localStorage.removeItem('solina_onboarded');}catch(e){}
+  showScreen('welcome');
+}
+/* SOLINA:END settings-js */
+
+/* SOLINA:BEGIN personalization */
+function solinaApplyPref(key,attr){
+  var v=null;try{v=localStorage.getItem(key);}catch(e){}
+  if(v)document.documentElement.setAttribute(attr,v);
+  return v;
+}
+function solinaMarkSeg(id,val){
+  var seg=$(id);if(!seg)return;
+  var bs=seg.querySelectorAll('button');
+  for(var i=0;i<bs.length;i++)bs[i].classList.toggle('on',bs[i].getAttribute('data-v')===val);
+}
+function solinaSetTheme(v){try{localStorage.setItem('solina_theme',v);}catch(e){}document.documentElement.setAttribute('data-theme',v);solinaMarkSeg('themeSeg',v);}
+function solinaSetAccent(v){try{localStorage.setItem('solina_accent',v);}catch(e){}document.documentElement.setAttribute('data-accent',v);solinaMarkSeg('accentSeg',v);}
+function solinaSetFont(v){try{localStorage.setItem('solina_font',v);}catch(e){}document.documentElement.setAttribute('data-font',v);solinaMarkSeg('fontSeg',v);}
+function solinaInitPrefs(){
+  var t=solinaApplyPref('solina_theme','data-theme')||'dark';
+  var a=solinaApplyPref('solina_accent','data-accent')||'orange';
+  var f=solinaApplyPref('solina_font','data-font')||'normal';
+  solinaMarkSeg('themeSeg',t);solinaMarkSeg('accentSeg',a);solinaMarkSeg('fontSeg',f);
+}
+/* SOLINA:END personalization */
+
+/* SOLINA:BEGIN fullscreen-btn */
+var solinaFs=false;
+function solinaToggleFs(){
+  solinaFs=!solinaFs;
+  var b=$('fsBtn');
+  if(b){b.classList.toggle('on',solinaFs);b.setAttribute('aria-pressed',solinaFs?'true':'false');}
+  window.location.href='bridge://fullscreen?on='+(solinaFs?1:0);
+}
+/* SOLINA:END fullscreen-btn */
+
+/* SOLINA:BEGIN init */
+(function(){
+  solinaInitPrefs();
+  solinaHookAi();
+  solinaRestoreAi();
+  var onboarded=false;
+  try{onboarded=localStorage.getItem('solina_onboarded')==='1';}catch(e){}
+  var start='ai';
+  if(!onboarded)start='welcome';
+  else{
+    var h=(location.hash||'').replace('#screen-','');
+    if(SOLINA_SCREENS.indexOf(h)>=0)start=h;
+  }
+  showScreen(start);
+})();
+/* SOLINA:END init */
+</script>
+<!-- SOLINA:END router -->
 </body>
 </html>

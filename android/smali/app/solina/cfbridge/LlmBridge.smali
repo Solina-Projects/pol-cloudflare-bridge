@@ -193,6 +193,26 @@
 
     goto :goto_48
 
+    const-string v0, "clear"
+
+    invoke-virtual {v0, p1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+
+    move-result v0
+
+    if-eqz v0, :cond_27
+
+    new-instance v0, Ljava/lang/Thread;
+
+    new-instance p1, Lapp/solina/cfbridge/LlmBridge$6;
+
+    invoke-direct {p1, p0}, Lapp/solina/cfbridge/LlmBridge$6;-><init>(Lapp/solina/cfbridge/MainActivity;)V
+
+    invoke-direct {v0, p1}, Ljava/lang/Thread;-><init>(Ljava/lang/Runnable;)V
+
+    invoke-virtual {v0}, Ljava/lang/Thread;->start()V
+
+    goto :goto_48
+
     .line 59
     :cond_27
     const-string p0, "cancel"
