@@ -148,3 +148,8 @@ What `verify.py` checks, in short:
   re-apply the Solina branding by hand after a sync.
 - **`quick-settings.js`.** Ours only; upstream has no equivalent. It is not
   referenced by any file in the repo yet (see `REPORT.md`).
+
+## 6. Sync log
+
+- **2026-11-21 — v1.0.1 (upstream b98edb7):** docs, changelog, v1.0.1 patches, cover art. Commit 2087d15.
+- **2026-11-22 — v1.0.2 (upstream 9ded766):** docs only (CHANGELOG + README + README_FA). No code changed upstream — the 1.0.2 app features (custom API model path, Fable retry, artifact download) are closed-build only and NOT ported. Our docs adapted (not copied): download links stay on our v1.0.0 asset, upstream 1.0.2 noted as APK-only with its security notice and SHA-256.

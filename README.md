@@ -8,7 +8,7 @@
 
 **One dashboard · Multiple AI paths · Your choice**
 
-> **Solina CF-Bridge** is a fork of [Pol Cloudflare Bridge](https://github.com/imgutss/pol-cloudflare-bridge) by imgutss, maintained by [Solina-Projects](https://github.com/Solina-Projects). It adds a multi-AI dashboard (Gemini, Google AI Studio, Grok, ChatGPT, Claude, DeepSeek, Perplexity), ships as package `app.solina.cfbridge` signed with the Solina key, and wires upstream's Gemini keyboard fix into the app. Upstream v1.0.1 features below (Antigravity engine, offline chat) are being ported.
+> **Solina CF-Bridge** is a fork of [Pol Cloudflare Bridge](https://github.com/imgutss/pol-cloudflare-bridge) by imgutss, maintained by [Solina-Projects](https://github.com/Solina-Projects). It adds a multi-AI dashboard (Gemini, Google AI Studio, Grok, ChatGPT, Claude, DeepSeek, Perplexity), ships as package `app.solina.cfbridge` signed with the Solina key, and wires upstream's Gemini keyboard fix into the app. Upstream released 1.0.2 (custom API model path, Fable retry, experimental artifact download) — those live only in the upstream APK, whose full source is not public, so they are not in this fork. The offline chat from v1.0.1 is shipped here; the Antigravity engine is not ported.
 
 <br/>
 
@@ -54,6 +54,10 @@ Antigravity is more than a dashboard shortcut. Solina CF-Bridge opens an **on-de
 | Choose a model next to the chat box | OpenAI-compatible custom API path |
 | Persian / English interface option | Uses the configured bridge for the custom path |
 | Available tools depend on the account and service | Start a new conversation after changing settings |
+
+> **Release 1.0.2 security notice (upstream APK):** This APK contains a bridge access credential that can be extracted. Treat the bridge credential as exposed; the bridge operator can see API keys and prompts. Use only a low-risk key and avoid confidential data.
+>
+> Compatibility is not universal: image-only Qwen models are not supported as chat models; Fable may still report insufficient quota. Artifact downloads are experimental, with a 32 MiB limit for the supported blob/data path. The APK internal version name remains `1.0.1` (version code 38).
 
 **Important:** custom API integration is experimental and configured for one text model; it does not imply support for every provider or model. Tool calls, images and audio are not guaranteed across APIs. Approve file and terminal permissions only when you trust the request. Login and some native paths may use different network behavior.
 
@@ -131,7 +135,7 @@ Solina CF-Bridge
 
 After downloading a compatible model, text conversations can run without an internet connection:
 
-| Capability | v1.0.1 experience |
+| Capability | Solina experience |
 | :--- | :--- |
 | 📦 **Models** | Separate downloads, horizontal cards and a delete option |
 | 💬 **Live response** | Incremental text instead of waiting for the entire reply |
@@ -174,7 +178,7 @@ Access, account features, speed and regional restrictions depend on the service 
 | :---: | :---: | :---: | :---: |
 | **v1.0.0** | ~**1.4 MB** | Android 8+ | [⬇️ Download APK](https://github.com/Solina-Projects/pol-cloudflare-bridge/releases/download/v1.0.0/SolinaCF-Bridge-v1.0.0.apk) |
 
-> Upstream v1.0.1 (~168 MB, with the Antigravity engine and offline chat) is being ported to this fork; see the fork note at the top.
+> Upstream 1.0.2 (~168 MB) is a closed build: its app changes are not in the open-source tree, so they are not in this fork. Offline chat is shipped here instead (8.2 MB APK + a separate ~469 MB model download); the Antigravity engine is not ported.
 
 > Back up important data before installing. Android may reject an in-place update if the installed APK uses a different signing key; uninstalling can erase app data.
 
@@ -182,6 +186,7 @@ Access, account features, speed and regional restrictions depend on the service 
 <summary><b>🔍 File details and source status</b></summary>
 
 - SHA-256: `fe0a5e45bffbaf98f63d90a0b35de2752be07262c4580dd5bea5684b11a4e2ef`
+- Upstream 1.0.2 custom-model output cap is 8192 tokens (4096 fallback); its APK SHA-256 is `989811fbe2600ada94eeb216f91d30696ddf6620f90da9c8456447d55a34ebd9` (upstream APK, not this fork's build).
 - Gemini keyboard inset handling is wired into this fork (`GeminiInsets`, smali); device testing is pending, and not all devices and WebView versions have been tested.
 - The repository contains earlier sources and [selected patches](./android/patches/v1.0.1/); the **complete source and an independent reproducible APK build are not currently available**.
 - Bundled components and separately downloaded models may have their own license terms.

@@ -20,8 +20,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Docs:** README/CHANGELOG rebranded to Solina CF-Bridge; download links point at this fork's releases.
 
 ### ℹ️ Notes
-- Upstream v1.0.1 features (Antigravity engine, offline chat) are being ported; offline LLM integration is in progress.
+- Upstream Antigravity engine is not ported. Offline chat shipped in this fork (Qwen2.5-0.5B, device-confirmed downloading). Upstream 1.0.2 features (custom API model path, Fable retry, artifact download) live only in the upstream APK and are not in the open-source tree.
 - Upstream entries below are historical, from Pol Cloudflare Bridge by imgutss.
+
+## [Upstream 1.0.2] - 2026-11-22
+
+### ℹ️ Notes (upstream release — docs-only sync, no code in the repo)
+- Upstream released 1.0.2: custom API model improvements, a bounded Fable retry, and an experimental artifact download path. The upstream commit changed docs only; the 1.0.2 app changes are NOT in the open-source tree, so they are NOT in this fork.
+- Improve custom text-model tool-call and conversation translation; tested with mock servers and some user-reported real models.
+- Add a bounded Fable retry after the specific Relay reservation quota error; it can still fail or truncate output.
+- Add an experimental artifact blob/data download path (32 MiB limit); not validated on an Android device.
+- Public APK contains an extractable bridge credential; treat it as exposed. Image-only Qwen endpoints are not supported as a chat model. The APK internal version name remains 1.0.1, version code 38.
+- Custom-model output cap is 8192 tokens, with a 4096 fallback if provider metadata is absent.
 
 ---
 
