@@ -2292,6 +2292,43 @@
     return-void
 .end method
 
+.method private logoutKeep()V
+    .locals 2
+
+    invoke-static {}, Landroid/webkit/CookieManager;->getInstance()Landroid/webkit/CookieManager;
+
+    move-result-object v0
+
+    new-instance v1, Lapp/solina/cfbridge/MainActivity$$ExternalSyntheticLambda7;
+
+    invoke-direct {v1}, Lapp/solina/cfbridge/MainActivity$$ExternalSyntheticLambda7;-><init>()V
+
+    invoke-virtual {v0, v1}, Landroid/webkit/CookieManager;->removeAllCookies(Landroid/webkit/ValueCallback;)V
+
+    iget-object v0, p0, Lapp/solina/cfbridge/MainActivity;->webView:Landroid/webkit/WebView;
+
+    if-eqz v0, :cond_0
+
+    const/4 v1, 0x1
+
+    invoke-virtual {v0, v1}, Landroid/webkit/WebView;->clearCache(Z)V
+
+    iget-object v0, p0, Lapp/solina/cfbridge/MainActivity;->webView:Landroid/webkit/WebView;
+
+    invoke-virtual {v0}, Landroid/webkit/WebView;->clearHistory()V
+
+    :cond_0
+    invoke-direct {p0}, Lapp/solina/cfbridge/MainActivity;->leaveBrowser()V
+
+    const-string v0, "\u0627\u0632 \u0647\u0645\u0647\u0654 \u062d\u0633\u0627\u0628\u200c\u0647\u0627 \u062e\u0627\u0631\u062c \u0634\u062f\u06cc\u061b \u062a\u0646\u0638\u06cc\u0645\u0627\u062a \u0628\u0631\u0646\u0627\u0645\u0647 \u0633\u0631 \u062c\u0627\u06cc\u0634 \u0645\u0627\u0646\u062f."
+
+    const/4 v1, 0x0
+
+    invoke-direct {p0, v0, v1}, Lapp/solina/cfbridge/MainActivity;->status(Ljava/lang/String;Z)V
+
+    return-void
+.end method
+
 .method private column()Landroid/widget/LinearLayout;
     .locals 2
 
@@ -6317,9 +6354,18 @@
     const-string v1, "bridge://logout-all"
     invoke-virtual {p1, v1}, Ljava/lang/String;->startsWith(Ljava/lang/String;)Z
     move-result v1
-    if-eqz v1, :cond_keep_login
+    if-eqz v1, :cond_logout_keep
 
     invoke-direct {p0}, Lapp/solina/cfbridge/MainActivity;->clearSession()V
+    goto :goto_end
+
+    :cond_logout_keep
+    const-string v1, "bridge://logout-keep"
+    invoke-virtual {p1, v1}, Ljava/lang/String;->startsWith(Ljava/lang/String;)Z
+    move-result v1
+    if-eqz v1, :cond_keep_login
+
+    invoke-direct {p0}, Lapp/solina/cfbridge/MainActivity;->logoutKeep()V
     goto :goto_end
 
     :cond_keep_login
