@@ -186,6 +186,26 @@ html[data-font="large"] .hd h2{font-size:16px}
 .lastai{color:var(--sig)}
 .ai-grid .btn.last-ai{box-shadow:inset 0 0 0 1.5px var(--sig)}
 /* SOLINA:END ai-remember-css */
+
+/* SOLINA:BEGIN browse-css */
+.addr{display:flex;gap:8px;align-items:stretch}
+.addr .f{flex:1}
+.addr .btn{width:auto;padding:0 18px;flex:none}
+.addr input{direction:ltr;text-align:left}
+.site-list{display:flex;flex-direction:column;gap:8px}
+.site-row{display:flex;align-items:center;gap:10px;width:100%;padding:11px 12px;border:0;border-radius:12px;background:#0e1522;color:var(--ice);font-family:inherit;font-size:13px;text-align:right;cursor:pointer;box-shadow:inset 0 0 0 1px var(--edge2)}
+.site-row b{display:block;font-size:13px}
+.site-row small{display:block;font-size:11px;color:var(--mute);direction:ltr;text-align:left;word-break:break-all}
+.site-row .go-ic{margin-inline-start:auto;color:var(--sig);flex:none}
+.site-row .bm{color:var(--sig);flex:none;font-size:16px}
+.empty-hint{font-size:11.5px;color:var(--mute);text-align:center;padding:6px 0}
+.qchips{display:flex;gap:8px;flex-wrap:wrap}
+.qchips button{border:0;border-radius:99px;padding:7px 13px;font-family:inherit;font-size:12px;font-weight:700;color:var(--ice);background:#0e1522;box-shadow:inset 0 0 0 1px var(--edge2);cursor:pointer}
+.qchips button:active{color:var(--sig)}
+.hist-item{padding:11px 12px;border-radius:12px;background:#0e1522;box-shadow:inset 0 0 0 1px var(--edge2);margin-bottom:8px}
+.hist-item .hq{font-size:12.5px;font-weight:700;color:var(--ice)}
+.hist-item .ha{font-size:12.5px;color:var(--mute);white-space:pre-wrap;word-break:break-word;margin-top:4px}
+/* SOLINA:END browse-css */
 </style>
 </head>
 <body data-screen="welcome">
@@ -324,6 +344,9 @@ html[data-font="large"] .hd h2{font-size:16px}
   <!-- SOLINA:BEGIN ai-remember-chip -->
   <p class="hint lastai" id="lastAiChip" style="display:none"></p>
   <!-- SOLINA:END ai-remember-chip -->
+  <!-- SOLINA:BEGIN browse-entry -->
+  <button class="btn ghost" onclick="showScreen('browse')"><svg class="ic"><use href="#i-launch"/></svg>مرور وب — باز کردن هر سایت</button>
+  <!-- SOLINA:END browse-entry -->
   <!-- SOLINA:BEGIN nav-ai -->
   <div class="snav"><button class="btn ghost" onclick="showScreen('bridge')">بازگشت</button><button class="btn go" onclick="showScreen('model')">ادامه: مدل آفلاین</button></div>
   <p class="step">مرحلهٔ ۴ از ۵</p>
@@ -351,12 +374,63 @@ html[data-font="large"] .hd h2{font-size:16px}
   <pre class="llm-out" id="llmOut" dir="rtl"></pre>
 </section>
 
+  <!-- SOLINA:BEGIN llm-history -->
+  <section class="slab">
+    <div class="hd"><div class="tile"><svg class="ic"><use href="#i-wave"/></svg></div><h2>گفتگو با مدل آفلاین</h2></div>
+    <p class="hint">مدل حرف‌های قبلی‌ات را یادش می‌ماند؛ سؤال جدید را با توجه به گفتگوی قبلی جواب می‌دهد.</p>
+    <div class="qchips">
+      <button onclick="solinaInsertPrompt('این متن را خلاصه کن: ')">خلاصه کن</button>
+      <button onclick="solinaInsertPrompt('این را به فارسی ترجمه کن: ')">ترجمه کن</button>
+      <button onclick="solinaInsertPrompt('برای این موضوع چند ایده بده: ')">ایده بده</button>
+      <button onclick="solinaInsertPrompt('این را ساده توضیح بده: ')">ساده توضیح بده</button>
+    </div>
+    <label class="ck"><input type="checkbox" id="llmMemoryCheck" checked onchange="solinaSetLlmMemory(this.checked)"><span class="bx"><svg class="ic"><use href="#i-check"/></svg></span><span><b>حافظهٔ گفتگو</b><small>روشن: مدل سؤال‌های قبلی را در نظر می‌گیرد. خاموش: هر سؤال جدا جواب داده می‌شود.</small></span></label>
+    <div id="llmHistoryList"></div>
+    <button class="btn ghost" onclick="solinaClearLlmHistory()">پاک‌کردن گفتگو</button>
+  </section>
+  <!-- SOLINA:END llm-history -->
   <!-- SOLINA:BEGIN nav-model -->
   <div class="snav"><button class="btn ghost" onclick="showScreen('ai')">بازگشت</button><button class="btn go" onclick="showScreen('settings')">تنظیمات</button></div>
   <p class="step">مرحلهٔ ۵ از ۵</p>
   <!-- SOLINA:END nav-model -->
 </div>
 <!-- SOLINA:END screen-model -->
+
+<!-- SOLINA:BEGIN screen-browse -->
+<div class="screen" id="screen-browse">
+  <section class="slab">
+    <div class="hd"><div class="tile"><svg class="ic"><use href="#i-launch"/></svg></div><h2>مرور وب</h2></div>
+    <p class="hint">مرور وب هم از همان پل آمریکا می‌گذرد؛ ورودت در سایت‌ها حفظ می‌شود.</p>
+    <div class="addr">
+      <div class="f"><input type="text" id="browseInput" placeholder="آدرس سایت یا جستجو…" autocomplete="off" onkeydown="if(event.key==='Enter')solinaBrowseGo()"></div>
+      <button class="btn go" onclick="solinaBrowseGo()">رفتن</button>
+    </div>
+    <div class="ai-grid">
+      <button class="btn ghost" onclick="solinaBrowseQuick('https://www.google.com/','Google')">Google</button>
+      <button class="btn ghost" onclick="solinaBrowseQuick('https://www.youtube.com/','YouTube')">YouTube</button>
+      <button class="btn ghost" onclick="solinaBrowseQuick('https://github.com/','GitHub')">GitHub</button>
+      <button class="btn ghost" onclick="solinaBrowseQuick('https://fa.wikipedia.org/','ویکی‌پدیا')">ویکی‌پدیا</button>
+    </div>
+    <p class="hint">دانلود: وقتی توی سایتی روی لینک دانلود بزنی، فایل با همان ورودت دانلود و در پوشهٔ Downloads گوشی ذخیره می‌شود.</p>
+  </section>
+
+  <section class="slab">
+    <div class="hd"><div class="tile"><svg class="ic"><use href="#i-check"/></svg></div><h2>نشان‌شده‌ها</h2></div>
+    <div class="site-list" id="bookmarkList"></div>
+    <p class="empty-hint" id="bookmarkEmpty">هنوز چیزی نشان نکردی — آدرس را بنویس و «نشان کردن» را بزن.</p>
+    <button class="btn ghost" onclick="solinaBookmarkCurrent()">＋ نشان کردن آدرس بالا</button>
+  </section>
+
+  <section class="slab">
+    <div class="hd"><div class="tile"><svg class="ic"><use href="#i-pulse"/></svg></div><h2>سایت‌های اخیر</h2></div>
+    <div class="site-list" id="recentList"></div>
+    <p class="empty-hint" id="recentEmpty">هنوز سایتی باز نکردی.</p>
+    <button class="btn ghost" onclick="solinaClearRecent()">پاک‌کردن تاریخچه</button>
+  </section>
+
+  <div class="snav"><button class="btn ghost" onclick="solinaBack()">بازگشت</button></div>
+</div>
+<!-- SOLINA:END screen-browse -->
 
 <!-- SOLINA:BEGIN screen-settings -->
 <div class="screen" id="screen-settings">
@@ -368,6 +442,13 @@ html[data-font="large"] .hd h2{font-size:16px}
     <div class="setrow"><div><b>هوش مصنوعی</b><small>ایمیل و آخرین هوش انتخاب‌شدهٔ ذخیره‌شده</small></div><button class="btn ghost sm" onclick="solinaClearAi()">پاک‌کردن</button></div>
     <div class="setrow"><div><b>مدل آفلاین</b><small id="setModelInfo">وضعیت مدل: —</small></div><button class="btn ghost sm" onclick="solinaClearModel()">حذف مدل دانلودشده</button></div>
     <div class="setrow"><div><b>راه‌اندازی دوباره</b><small>نمایش دوبارهٔ صفحهٔ خوشامدگویی و راهنما</small></div><button class="btn ghost sm" onclick="solinaReplayOnboarding()">نمایش راهنما</button></div>
+
+    <!-- SOLINA:BEGIN login-keep -->
+    <h3 class="set-h">ورود</h3>
+    <p class="hint">یک‌بار وارد شو، همه‌جا وارد می‌مانی: ورود گوگل روی Gemini و AI Studio یکی است، و ورود هر سایت — گوگل، گیت‌هاب و بقیه — بین تعویض هوش مصنوعی و باز کردن دوبارهٔ برنامه حفظ می‌شود. برای ورود دوباره لازم نیست.</p>
+    <label class="ck"><input type="checkbox" id="keepLoginCheck" checked onchange="solinaSetKeepLogin(this.checked)"><span class="bx"><svg class="ic"><use href="#i-check"/></svg></span><span><b>مرا وارد نگه دار</b><small>وقتی روشن است، ورودت در همهٔ سایت‌ها می‌ماند. اگر خاموشش کنی، با بستن برنامه از همهٔ حساب‌ها خارج می‌شوی.</small></span></label>
+    <div class="setrow"><div><b>خروج از همهٔ حساب‌ها</b><small>کوکی‌ها و نشست همهٔ سایت‌ها پاک می‌شود؛ حساب روی خود سایت حذف نمی‌شود.</small></div><button class="btn ghost sm" id="logoutAllBtn" onclick="solinaLogoutAll()">خروج از همه</button></div>
+    <!-- SOLINA:END login-keep -->
 
     <h3 class="set-h">شخصی‌سازی</h3>
     <div class="setrow"><div><b>پوسته</b><small>روشن یا تیره</small></div><div class="seg" id="themeSeg"><button data-v="dark" onclick="solinaSetTheme('dark')">تیره</button><button data-v="light" onclick="solinaSetTheme('light')">روشن</button></div></div>
@@ -476,7 +557,7 @@ try{llm('status')}catch(e){}
 <!-- SOLINA:BEGIN router -->
 <script>
 /* SOLINA:BEGIN router-js */
-var SOLINA_SCREENS=['welcome','permissions','bridge','ai','model','settings'];
+var SOLINA_SCREENS=['welcome','permissions','bridge','ai','model','browse','settings'];
 var solinaPrevScreen='ai';
 function showScreen(name){
   if(SOLINA_SCREENS.indexOf(name)<0)name='ai';
@@ -618,6 +699,216 @@ function solinaToggleFs(){
   showScreen(start);
 })();
 /* SOLINA:END init */
+
+/* SOLINA:BEGIN login-keep-js */
+var solinaLogoutArmed=false;
+function solinaSetKeepLogin(v){
+  try{localStorage.setItem('solina_keep_login',v?'1':'0');}catch(e){}
+  try{window.location.href='bridge://keep-login?on='+(v?1:0);}catch(e){}
+  toast(v?'ورودت حفظ می‌شود':'با بستن برنامه از حساب‌ها خارج می‌شوی');
+}
+function solinaInitLogin(){
+  try{
+    var v=localStorage.getItem('solina_keep_login');
+    var c=$('keepLoginCheck');if(c)c.checked=(v!=='0');
+    try{window.location.href='bridge://keep-login?on='+((v==='0')?0:1);}catch(e){}
+  }catch(e){}
+}
+function solinaLogoutAll(){
+  var b=$('logoutAllBtn');
+  if(!solinaLogoutArmed){
+    solinaLogoutArmed=true;
+    if(b)b.textContent='مطمئنی؟ دوباره بزن';
+    toast('برای خروج از همهٔ حساب‌ها، دوباره بزن');
+    setTimeout(function(){solinaLogoutArmed=false;if(b)b.textContent='خروج از همه';},4000);
+    return;
+  }
+  solinaLogoutArmed=false;
+  if(b)b.textContent='خروج از همه';
+  toast('در حال خروج از همهٔ حساب‌ها…');
+  window.location.href='bridge://logout-all';
+}
+/* SOLINA:END login-keep-js */
+
+/* SOLINA:BEGIN browse-js */
+function solinaBrowseHost(u){try{return new URL(u).host;}catch(e){return u;}}
+function solinaNormalizeBrowse(q){
+  q=(q||'').trim();
+  if(!q)return null;
+  if(/\s/.test(q)||q.indexOf('.')<0){
+    return 'https://www.google.com/search?q='+encodeURIComponent(q);
+  }
+  if(!/^https?:\/\//i.test(q))q='https://'+q;
+  return q;
+}
+function solinaLsGet(key){
+  try{var v=JSON.parse(localStorage.getItem(key)||'[]');return Array.isArray(v)?v:[];}catch(e){return [];}
+}
+function solinaLsSet(key,v){try{localStorage.setItem(key,JSON.stringify(v));}catch(e){}}
+function solinaRecordSite(url,title){
+  var list=solinaLsGet('solina_recent_sites');
+  list=list.filter(function(x){return x.u!==url;});
+  list.unshift({u:url,t:title||solinaBrowseHost(url),ts:Date.now()});
+  solinaLsSet('solina_recent_sites',list.slice(0,8));
+  solinaRenderRecent();
+}
+function solinaSiteRow(item,star){
+  var row=document.createElement('button');
+  row.className='site-row';row.type='button';
+  if(star){var s=document.createElement('span');s.className='bm';s.textContent='★';row.appendChild(s);}
+  var tx=document.createElement('span');
+  var b=document.createElement('b');b.textContent=item.t;tx.appendChild(b);
+  var sm=document.createElement('small');sm.setAttribute('dir','ltr');sm.textContent=item.u;tx.appendChild(sm);
+  row.appendChild(tx);
+  var go=document.createElement('span');go.className='go-ic';go.textContent='‹';row.appendChild(go);
+  row.addEventListener('click',function(){solinaRecordSite(item.u,item.t);launchSite(item.u,item.t);});
+  return row;
+}
+function solinaRenderRecent(){
+  var list=solinaLsGet('solina_recent_sites');
+  var box=$('recentList');if(!box)return;
+  box.innerHTML='';
+  for(var i=0;i<list.length;i++)box.appendChild(solinaSiteRow(list[i],false));
+  var e=$('recentEmpty');if(e)e.style.display=list.length?'none':'block';
+}
+function solinaRenderBookmarks(){
+  var list=solinaLsGet('solina_bookmarks');
+  var box=$('bookmarkList');if(!box)return;
+  box.innerHTML='';
+  for(var i=0;i<list.length;i++)box.appendChild(solinaSiteRow(list[i],true));
+  var e=$('bookmarkEmpty');if(e)e.style.display=list.length?'none':'block';
+}
+function solinaBookmarkCurrent(){
+  var inp=$('browseInput');var q=inp?inp.value.trim():'';
+  var url=solinaNormalizeBrowse(q);
+  if(!url){toast('اول یک آدرس بنویس','bad');if(inp)inp.focus();return;}
+  var list=solinaLsGet('solina_bookmarks');
+  if(list.some(function(x){return x.u===url;})){toast('این سایت از قبل نشان شده');return;}
+  list.unshift({u:url,t:solinaBrowseHost(url),ts:Date.now()});
+  solinaLsSet('solina_bookmarks',list.slice(0,20));
+  solinaRenderBookmarks();
+  toast('نشان شد');
+}
+function solinaBrowseGo(){
+  var inp=$('browseInput');var q=inp?inp.value.trim():'';
+  var url=solinaNormalizeBrowse(q);
+  if(!url){toast('اول یک آدرس یا کلمه بنویس','bad');if(inp)inp.focus();return;}
+  solinaRecordSite(url,solinaBrowseHost(url));
+  launchSite(url,solinaBrowseHost(url));
+}
+function solinaBrowseQuick(url,name){
+  solinaRecordSite(url,name);
+  launchSite(url,name);
+}
+function solinaClearRecent(){
+  solinaLsSet('solina_recent_sites',[]);
+  solinaRenderRecent();
+  toast('تاریخچهٔ سایت‌ها پاک شد');
+}
+function solinaInitBrowse(){
+  solinaRenderRecent();
+  solinaRenderBookmarks();
+}
+/* SOLINA:END browse-js */
+
+/* SOLINA:BEGIN llm-history-js */
+var solinaLlmHist=[];
+function solinaLlmLoad(){
+  solinaLlmHist=solinaLsGet('solina_llm_history');
+}
+function solinaLlmSave(){solinaLsSet('solina_llm_history',solinaLlmHist.slice(-20));}
+function solinaLlmMemoryOn(){
+  try{return localStorage.getItem('solina_llm_memory')!=='0';}catch(e){return true;}
+}
+function solinaLlmPush(role,text){
+  if(!text)return;
+  solinaLlmHist.push({r:role,t:String(text).slice(0,1500)});
+  solinaLlmHist=solinaLlmHist.slice(-20);
+  solinaLlmSave();
+  solinaRenderLlmHistory();
+}
+function solinaLlmTranscript(newQ){
+  if(!solinaLlmMemoryOn())return newQ;
+  var turns=[];
+  for(var i=0;i<solinaLlmHist.length;i++){
+    var h=solinaLlmHist[i];
+    turns.push((h.r==='user'?'کاربر: ':'مدل: ')+String(h.t).slice(0,500));
+  }
+  turns=turns.slice(-8);
+  if(!turns.length)return newQ;
+  return 'گفتگوی قبلی:\n'+turns.join('\n')+'\nکاربر: '+newQ+'\nمدل:';
+}
+function solinaRenderLlmHistory(){
+  var box=$('llmHistoryList');if(!box)return;
+  box.innerHTML='';
+  for(var i=Math.max(0,solinaLlmHist.length-6);i<solinaLlmHist.length;i+=2){
+    var q=solinaLlmHist[i],a=solinaLlmHist[i+1];
+    if(!q||q.r!=='user')continue;
+    var d=document.createElement('div');
+    d.className='hist-item';
+    var hq=document.createElement('div');hq.className='hq';hq.textContent='تو: '+q.t;
+    d.appendChild(hq);
+    if(a&&a.r==='model'){
+      var ha=document.createElement('div');ha.className='ha';ha.textContent=a.t;
+      d.appendChild(ha);
+    }
+    box.appendChild(d);
+  }
+}
+function solinaClearLlmHistory(){
+  solinaLlmHist=[];
+  solinaLlmSave();
+  solinaRenderLlmHistory();
+  toast('گفتگو پاک شد');
+}
+function solinaSetLlmMemory(v){
+  try{localStorage.setItem('solina_llm_memory',v?'1':'0');}catch(e){}
+}
+function solinaInsertPrompt(text){
+  var ta=$('llmPrompt');if(!ta)return;
+  ta.value=text;
+  ta.focus();
+  try{showScreen('model');}catch(e){}
+}
+function solinaInitLlmHistory(){
+  solinaLlmLoad();
+  try{
+    var m=localStorage.getItem('solina_llm_memory');
+    var c=$('llmMemoryCheck');if(c)c.checked=(m!=='0');
+  }catch(e){}
+  solinaRenderLlmHistory();
+  if(typeof window.llmGen==='function'&&!window.llmGen._solinaWrapped){
+    var _origGen=window.llmGen;
+    var _wrapped=function(){
+      var ta=$('llmPrompt');var p=ta?ta.value.trim():'';
+      if(!p)return _origGen();
+      var full=solinaLlmTranscript(p);
+      solinaLlmPush('user',p);
+      if(full!==p){ta.value=full;var r=_origGen();ta.value=p;return r;}
+      return _origGen();
+    };
+    _wrapped._solinaWrapped=true;
+    window.llmGen=_wrapped;
+  }
+  if(typeof window.__llmDone==='function'&&!window.__llmDone._solinaWrapped){
+    var _origDone=window.__llmDone;
+    var _wrappedDone=function(t){
+      solinaLlmPush('model',t);
+      return _origDone(t);
+    };
+    _wrappedDone._solinaWrapped=true;
+    window.__llmDone=_wrappedDone;
+  }
+}
+/* SOLINA:END llm-history-js */
+
+/* SOLINA:BEGIN wave2-init */
+(function(){
+  solinaInitLogin();
+  solinaInitBrowse();
+  solinaInitLlmHistory();
+})();
+/* SOLINA:END wave2-init */
 </script>
 <!-- SOLINA:END router -->
 </body>

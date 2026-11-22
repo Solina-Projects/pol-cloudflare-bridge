@@ -56,6 +56,8 @@
 
 .field private volatile destroyed:Z
 
+.field private clearSessionOnExit:Z
+
 .field private emailInput:Landroid/widget/EditText;
 
 .field private endpointInput:Landroid/widget/EditText;
@@ -4321,20 +4323,82 @@
 .end method
 
 .method synthetic lambda$attachBrowser$26$app-pol-bridge-MainActivity(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;J)V
-    .locals 0
+    .locals 5
 
-    .line 450
-    iget-object p1, p0, Lapp/solina/cfbridge/MainActivity;->browserError:Landroid/widget/TextView;
+    invoke-static {p1, p3, p4}, Landroid/webkit/URLUtil;->guessFileName(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
 
-    const-string p2, "\u062f\u0627\u0646\u0644\u0648\u062f \u0641\u0627\u06cc\u0644 \u062f\u0631 \u0627\u06cc\u0646 \u0646\u0633\u062e\u0647 \u0641\u0639\u0627\u0644 \u0646\u06cc\u0633\u062a."
+    move-result-object v0
 
-    invoke-virtual {p1, p2}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
+    new-instance v1, Landroid/app/DownloadManager$Request;
 
-    iget-object p1, p0, Lapp/solina/cfbridge/MainActivity;->browserError:Landroid/widget/TextView;
+    invoke-static {p1}, Landroid/net/Uri;->parse(Ljava/lang/String;)Landroid/net/Uri;
 
-    const/4 p2, 0x0
+    move-result-object v2
 
-    invoke-virtual {p1, p2}, Landroid/widget/TextView;->setVisibility(I)V
+    invoke-direct {v1, v2}, Landroid/app/DownloadManager$Request;-><init>(Landroid/net/Uri;)V
+
+    invoke-virtual {v1, p4}, Landroid/app/DownloadManager$Request;->setMimeType(Ljava/lang/String;)Landroid/app/DownloadManager$Request;
+
+    invoke-static {}, Landroid/webkit/CookieManager;->getInstance()Landroid/webkit/CookieManager;
+
+    move-result-object v2
+
+    invoke-virtual {v2, p1}, Landroid/webkit/CookieManager;->getCookie(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v2
+
+    if-eqz v2, :cond_no_cookie
+
+    const-string v3, "Cookie"
+
+    invoke-virtual {v1, v3, v2}, Landroid/app/DownloadManager$Request;->addRequestHeader(Ljava/lang/String;Ljava/lang/String;)Landroid/app/DownloadManager$Request;
+
+    :cond_no_cookie
+    const-string v2, "User-Agent"
+
+    invoke-virtual {v1, v2, p2}, Landroid/app/DownloadManager$Request;->addRequestHeader(Ljava/lang/String;Ljava/lang/String;)Landroid/app/DownloadManager$Request;
+
+    invoke-virtual {v1, v0}, Landroid/app/DownloadManager$Request;->setTitle(Ljava/lang/CharSequence;)Landroid/app/DownloadManager$Request;
+
+    const/4 v2, 0x1
+
+    invoke-virtual {v1, v2}, Landroid/app/DownloadManager$Request;->setNotificationVisibility(I)Landroid/app/DownloadManager$Request;
+
+    sget-object v2, Landroid/os/Environment;->DIRECTORY_DOWNLOADS:Ljava/lang/String;
+
+    invoke-virtual {v1, v2, v0}, Landroid/app/DownloadManager$Request;->setDestinationInExternalPublicDir(Ljava/lang/String;Ljava/lang/String;)Landroid/app/DownloadManager$Request;
+
+    const-string v2, "download"
+
+    invoke-virtual {p0, v2}, Landroid/app/Activity;->getSystemService(Ljava/lang/String;)Ljava/lang/Object;
+
+    move-result-object v2
+
+    check-cast v2, Landroid/app/DownloadManager;
+
+    invoke-virtual {v2, v1}, Landroid/app/DownloadManager;->enqueue(Landroid/app/DownloadManager$Request;)J
+
+    new-instance v1, Ljava/lang/StringBuilder;
+
+    const-string v2, "\u062f\u0627\u0646\u0644\u0648\u062f \u0634\u0631\u0648\u0639 \u0634\u062f: "
+
+    invoke-direct {v1, v2}, Ljava/lang/StringBuilder;-><init>(Ljava/lang/String;)V
+
+    invoke-virtual {v1, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v1
+
+    iget-object v2, p0, Lapp/solina/cfbridge/MainActivity;->browserError:Landroid/widget/TextView;
+
+    invoke-virtual {v2, v1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
+
+    iget-object v1, p0, Lapp/solina/cfbridge/MainActivity;->browserError:Landroid/widget/TextView;
+
+    const/4 v2, 0x0
+
+    invoke-virtual {v1, v2}, Landroid/widget/TextView;->setVisibility(I)V
 
     return-void
 .end method
@@ -5955,6 +6019,35 @@
 
     invoke-virtual {v0}, Lokhttp3/ConnectionPool;->evictAll()V
 
+    iget-boolean v0, p0, Lapp/solina/cfbridge/MainActivity;->clearSessionOnExit:Z
+
+    if-eqz v0, :cond_no_clear_exit
+
+    invoke-static {}, Landroid/webkit/CookieManager;->getInstance()Landroid/webkit/CookieManager;
+
+    move-result-object v0
+
+    new-instance v1, Lapp/solina/cfbridge/MainActivity$$ExternalSyntheticLambda7;
+
+    invoke-direct {v1}, Lapp/solina/cfbridge/MainActivity$$ExternalSyntheticLambda7;-><init>()V
+
+    invoke-virtual {v0, v1}, Landroid/webkit/CookieManager;->removeAllCookies(Landroid/webkit/ValueCallback;)V
+
+    invoke-static {}, Landroid/webkit/WebStorage;->getInstance()Landroid/webkit/WebStorage;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Landroid/webkit/WebStorage;->deleteAllData()V
+
+    iget-object v0, p0, Lapp/solina/cfbridge/MainActivity;->webView:Landroid/webkit/WebView;
+
+    if-eqz v0, :cond_no_clear_exit
+
+    const/4 v1, 0x1
+
+    invoke-virtual {v0, v1}, Landroid/webkit/WebView;->clearCache(Z)V
+
+    :cond_no_clear_exit
     .line 587
     invoke-super {p0}, Landroid/app/Activity;->onDestroy()V
 
@@ -5974,6 +6067,12 @@
     invoke-virtual {v0}, Landroid/webkit/WebView;->onPause()V
 
     :cond_0
+    invoke-static {}, Landroid/webkit/CookieManager;->getInstance()Landroid/webkit/CookieManager;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Landroid/webkit/CookieManager;->flush()V
+
     invoke-super {p0}, Landroid/app/Activity;->onPause()V
 
     return-void
@@ -6189,7 +6288,7 @@
     const-string v1, "bridge://home"
     invoke-virtual {p1, v1}, Ljava/lang/String;->startsWith(Ljava/lang/String;)Z
     move-result v1
-    if-eqz v1, :cond_end
+    if-eqz v1, :cond_logout_action
 
     const-string v1, "screen"
     invoke-virtual {v0, v1}, Landroid/net/Uri;->getQueryParameter(Ljava/lang/String;)Ljava/lang/String;
@@ -6212,6 +6311,45 @@
     iget-object v2, p0, Lapp/solina/cfbridge/MainActivity;->homeWeb:Landroid/webkit/WebView;
     if-eqz v2, :goto_end
     invoke-virtual {v2, v1}, Landroid/webkit/WebView;->loadUrl(Ljava/lang/String;)V
+    goto :goto_end
+
+    :cond_logout_action
+    const-string v1, "bridge://logout-all"
+    invoke-virtual {p1, v1}, Ljava/lang/String;->startsWith(Ljava/lang/String;)Z
+    move-result v1
+    if-eqz v1, :cond_keep_login
+
+    invoke-direct {p0}, Lapp/solina/cfbridge/MainActivity;->clearSession()V
+    goto :goto_end
+
+    :cond_keep_login
+    const-string v1, "bridge://keep-login"
+    invoke-virtual {p1, v1}, Ljava/lang/String;->startsWith(Ljava/lang/String;)Z
+    move-result v1
+    if-eqz v1, :cond_end
+
+    const-string v1, "on"
+    invoke-virtual {v0, v1}, Landroid/net/Uri;->getQueryParameter(Ljava/lang/String;)Ljava/lang/String;
+    move-result-object v1
+
+    const-string v2, "1"
+    invoke-virtual {v2, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+    move-result v1
+    if-eqz v1, :cond_kl_off
+
+    const/4 v1, 0x0
+    iput-boolean v1, p0, Lapp/solina/cfbridge/MainActivity;->clearSessionOnExit:Z
+    goto :goto_end
+
+    :cond_kl_off
+    iget-boolean v1, p0, Lapp/solina/cfbridge/MainActivity;->clearSessionOnExit:Z
+    if-nez v1, :cond_kl_do_clear
+    goto :goto_end
+
+    :cond_kl_do_clear
+    const/4 v1, 0x1
+    iput-boolean v1, p0, Lapp/solina/cfbridge/MainActivity;->clearSessionOnExit:Z
+    invoke-direct {p0}, Lapp/solina/cfbridge/MainActivity;->clearSession()V
     goto :goto_end
 
     :cond_end
