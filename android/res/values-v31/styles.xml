@@ -1,15 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Android 12+: صفحهٔ لوگوی شروع با گرادیان/نماد آیکن، هم‌سبک بقیهٔ برنامه‌های Solina.
-         بقیهٔ آیتم‌ها دقیقاً همان AppTheme در values/styles.xml است. -->
-    <style name="AppTheme" parent="@android:style/Theme.Material.NoActionBar">
-        <item name="android:windowBackground">#ff090f1b</item>
-        <item name="android:windowActionModeOverlay">true</item>
-        <item name="android:fontFamily">sans</item>
-        <item name="android:colorAccent">#ffb8f87a</item>
-        <item name="android:statusBarColor">#ff090f1b</item>
-        <item name="android:navigationBarColor">#ff090f1b</item>
-        <item name="android:windowLightStatusBar">false</item>
+    <!-- Android 12+: صفحهٔ لوگوی سیستمی با گرادیان/نماد آیکن، هم‌سبک بقیهٔ برنامه‌های Solina -->
+    <style name="AppTheme.Splash">
         <item name="android:windowSplashScreenBackground">#ff05778a</item>
         <item name="android:windowSplashScreenAnimatedIcon">@drawable/ic_bridge_foreground</item>
     </style>

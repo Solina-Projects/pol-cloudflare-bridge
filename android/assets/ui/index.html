@@ -15,7 +15,7 @@ try{
 <!-- SOLINA:END personalization-early -->
 <title>Solina CF-Bridge</title>
 <style>
-:root{--ink:#06080d;--s1:#131b2a;--s2:#0a0f18;--edge:#1d2738;--edge2:#2d3b54;--ice:#eaf0f8;--mute:#7c8ba1;--sig:#ff8a2a;--sig2:#b85a0c;--ok:#5be3b0;--bad:#ff5568}
+:root{--ink:#06080d;--s1:#131b2a;--s2:#0a0f18;--edge:#1d2738;--edge2:#2d3b54;--ice:#eaf0f8;--mute:#7c8ba1;--sig:#19c9ba;--sig2:#0a6f8a;--sigrgb:25,201,186;--ok:#5be3b0;--bad:#ff5568}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html{background:var(--ink);overflow-x:hidden}
 body{min-height:100vh;color:var(--ice);font:14px/1.7 system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:radial-gradient(70% 38% at 50% 0,#182640 0,transparent 72%),var(--ink);display:flex;justify-content:center;padding:16px 14px 44px;overflow-x:hidden;touch-action:pan-y}
@@ -23,7 +23,7 @@ body{min-height:100vh;color:var(--ice);font:14px/1.7 system-ui,-apple-system,Bli
 :focus-visible{outline:2px solid var(--sig);outline-offset:3px}
 
 /* icons */
-.ic{width:20px;height:20px;flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(1.2px 1.2px 0 rgba(255,138,42,.5))}
+.ic{width:20px;height:20px;flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(1.2px 1.2px 0 rgba(var(--sigrgb),.5))}
 
 /* hero: static 3D perspective, no touch tilting */
 .hero{position:relative;height:240px;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;text-align:center;perspective:700px}
@@ -64,9 +64,9 @@ body{min-height:100vh;color:var(--ice);font:14px/1.7 system-ui,-apple-system,Bli
 .f{position:relative}
 .l{display:block;font-size:11.5px;color:var(--mute);margin-bottom:6px}
 .f input{width:100%;height:46px;border:0;border-radius:14px;padding:0 44px 0 14px;font:13.5px system-ui,sans-serif;color:var(--ice);direction:ltr;text-align:left;background:#070b12;box-shadow:inset 0 2px 6px rgba(0,0,0,.6),inset 0 0 0 1px var(--edge);outline:0;transition:box-shadow .25s}
-.f input:focus{box-shadow:inset 0 2px 6px rgba(0,0,0,.6),inset 0 0 0 1px var(--sig),0 0 0 3px rgba(255,138,42,.15)}
+.f input:focus{box-shadow:inset 0 2px 6px rgba(0,0,0,.6),inset 0 0 0 1px var(--sig),0 0 0 3px rgba(var(--sigrgb),.15)}
 .f textarea{width:100%;min-height:88px;border:0;border-radius:14px;padding:12px 14px;font:13.5px system-ui,sans-serif;color:var(--ice);direction:rtl;text-align:right;background:#070b12;box-shadow:inset 0 2px 6px rgba(0,0,0,.6),inset 0 0 0 1px var(--edge);outline:0;resize:vertical;transition:box-shadow .25s}
-.f textarea:focus{box-shadow:inset 0 2px 6px rgba(0,0,0,.6),inset 0 0 0 1px var(--sig),0 0 0 3px rgba(255,138,42,.15)}
+.f textarea:focus{box-shadow:inset 0 2px 6px rgba(0,0,0,.6),inset 0 0 0 1px var(--sig),0 0 0 3px rgba(var(--sigrgb),.15)}
 .f textarea::placeholder{color:#44526a}
 .llm-out{white-space:pre-wrap;word-break:break-word;font:13px/1.9 system-ui,sans-serif;color:var(--ice);min-height:64px;margin:10px 0 0;padding:12px 14px;border-radius:14px;background:#070b12;box-shadow:inset 0 0 0 1px var(--edge)}
 .llm-out:empty::before{content:'پاسخ مدل اینجا می‌آید…';color:var(--mute)}
@@ -87,8 +87,8 @@ body{min-height:100vh;color:var(--ice);font:14px/1.7 system-ui,-apple-system,Bli
 
 /* tactile 3D buttons */
 .btn{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;height:48px;border:0;border-radius:15px;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer;transition:transform .1s,box-shadow .1s}
-.go{color:#1b0e02;background:linear-gradient(180deg,#ffa04d,var(--sig));box-shadow:0 4px 0 var(--sig2),0 12px 20px -8px rgba(255,138,42,.5),inset 0 1px 0 rgba(255,255,255,.4)}
-.go:active{transform:translateY(3px);box-shadow:0 1px 0 var(--sig2),0 4px 8px -4px rgba(255,138,42,.4)}
+.go{color:#1b0e02;background:linear-gradient(180deg,#5eead4,var(--sig));box-shadow:0 4px 0 var(--sig2),0 12px 20px -8px rgba(var(--sigrgb),.5),inset 0 1px 0 rgba(255,255,255,.4)}
+.go:active{transform:translateY(3px);box-shadow:0 1px 0 var(--sig2),0 4px 8px -4px rgba(var(--sigrgb),.4)}
 .ghost{color:var(--ice);background:#0e1522;box-shadow:inset 0 0 0 1px var(--edge2),0 3px 0 #070b12}
 .ghost:active{transform:translateY(2px);box-shadow:inset 0 0 0 1px var(--edge2),0 1px 0 #070b12}
 
@@ -106,8 +106,8 @@ body{min-height:100vh;color:var(--ice);font:14px/1.7 system-ui,-apple-system,Bli
 .pv .ic{width:18px;height:18px}
 
 /* note + footer */
-.note{padding:14px 16px;border-radius:18px;background:rgba(255,138,42,.05);box-shadow:inset 0 0 0 1px rgba(255,138,42,.22);display:flex;gap:12px}
-.note b{display:block;color:#ffb36b;font-size:12px}
+.note{padding:14px 16px;border-radius:18px;background:rgba(var(--sigrgb),.05);box-shadow:inset 0 0 0 1px rgba(var(--sigrgb),.22);display:flex;gap:12px}
+.note b{display:block;color:var(--sig);font-size:12px}
 .note p{color:#c99a68;font-size:11px;line-height:1.7}
 .note .ic{color:var(--sig);margin-top:2px}
 .ft{text-align:center;font-size:10.5px;color:#56647c;line-height:1.8}
@@ -162,16 +162,18 @@ html[data-theme="light"] .f input,html[data-theme="light"] .f textarea,html[data
 html[data-theme="light"] .ghost,html[data-theme="light"] .tbtn,html[data-theme="light"] .seg button{background:#e8edf3}
 html[data-theme="light"] .chip{background:#e8edf3}
 html[data-theme="light"] .tile{background:linear-gradient(145deg,#e8edf3,#dfe6ee)}
-html[data-theme="light"] .note{background:rgba(255,138,42,.08)}
+html[data-theme="light"] .note{background:rgba(var(--sigrgb),.08)}
 html[data-theme="light"] .note p{color:#8a5a22}
 html[data-theme="light"] #toast{background:#16233a;color:#eef2f7}
 /* SOLINA:END personalization-theme-light */
 
 /* SOLINA:BEGIN personalization-accent */
-html[data-accent="teal"]{--sig:#2dd4bf;--sig2:#0d9488}
-html[data-accent="violet"]{--sig:#a78bfa;--sig2:#7c3aed}
-html[data-accent="green"]{--sig:#4ade80;--sig2:#16a34a}
-html[data-accent="teal"] .go{background:linear-gradient(180deg,#5eead4,#2dd4bf)}
+html[data-accent="orange"]{--sig:#ff8a2a;--sig2:#b85a0c;--sigrgb:255,138,42}
+html[data-accent="orange"] .go{background:linear-gradient(180deg,#ffa04d,#ff8a2a)}
+html[data-accent="teal"]{--sig:#19c9ba;--sig2:#0a6f8a;--sigrgb:25,201,186}
+html[data-accent="violet"]{--sig:#a78bfa;--sig2:#7c3aed;--sigrgb:167,139,250}
+html[data-accent="green"]{--sig:#4ade80;--sig2:#16a34a;--sigrgb:74,222,128}
+html[data-accent="teal"] .go{background:linear-gradient(180deg,#5eead4,#19c9ba)}
 html[data-accent="violet"] .go{background:linear-gradient(180deg,#c4b5fd,#a78bfa)}
 html[data-accent="green"] .go{background:linear-gradient(180deg,#86efac,#4ade80)}
 /* SOLINA:END personalization-accent */
@@ -689,7 +691,7 @@ function solinaSetAccent(v){try{localStorage.setItem('solina_accent',v);}catch(e
 function solinaSetFont(v){try{localStorage.setItem('solina_font',v);}catch(e){}document.documentElement.setAttribute('data-font',v);solinaMarkSeg('fontSeg',v);}
 function solinaInitPrefs(){
   var t=solinaApplyPref('solina_theme','data-theme')||'dark';
-  var a=solinaApplyPref('solina_accent','data-accent')||'orange';
+  var a=solinaApplyPref('solina_accent','data-accent')||'teal';
   var f=solinaApplyPref('solina_font','data-font')||'normal';
   solinaMarkSeg('themeSeg',t);solinaMarkSeg('accentSeg',a);solinaMarkSeg('fontSeg',f);
 }

@@ -5858,6 +5858,10 @@
 .method public onCreate(Landroid/os/Bundle;)V
     .locals 3
 
+    const v0, 0x7f090000
+
+    invoke-virtual {p0, v0}, Lapp/solina/cfbridge/MainActivity;->setTheme(I)V
+
     .line 93
     invoke-super {p0, p1}, Landroid/app/Activity;->onCreate(Landroid/os/Bundle;)V
 

@@ -4,10 +4,16 @@
         <item name="android:windowBackground">#ff090f1b</item>
         <item name="android:windowActionModeOverlay">true</item>
         <item name="android:fontFamily">sans</item>
-        <item name="android:colorAccent">#ffb8f87a</item>
+        <item name="android:colorAccent">#ff19c9ba</item>
         <item name="android:statusBarColor">#ff090f1b</item>
         <item name="android:navigationBarColor">#ff090f1b</item>
         <item name="android:windowLightStatusBar">false</item>
+    </style>
+    <!-- فقط برای لحظهٔ شروع؛ MainActivity.onCreate بلافاصله به AppTheme برمی‌گردد -->
+    <style name="AppTheme.Splash">
+        <item name="android:windowBackground">@drawable/splash_window</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
     </style>
     <style name="TextAppearance.Compat.Notification" parent="@android:style/TextAppearance.Material.Notification" />
     <style name="TextAppearance.Compat.Notification.Info" parent="@android:style/TextAppearance.Material.Notification.Info" />
